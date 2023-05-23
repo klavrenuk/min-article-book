@@ -9,7 +9,7 @@
 
 <script>
     export default {
-        name: "Search"
+        name: "SearchGeneral"
     }
 </script>
 

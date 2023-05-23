@@ -5,42 +5,40 @@
                 Создать категорию
             </button>
 
-            <Search />
+            <SearchGeneral />
         </div>
 
         <div class="categories-content">
-
+            <Category v-for="category in categories"
+                      :key="category.id"
+            />
         </div>
     </div>
 </template>
 
 <script>
-    import Search from "@/components/search/Search";
+    import SearchGeneral from "@/components/search/SearchGeneral";
+    import Category from "@/components/category/Category";
 
     export default {
         name: "TheCategories",
-        components: {Search},
+        components: {
+            SearchGeneral,
+            Category
+        },
 
         data() {
             return {
-                listCategories: [
+                categories: [
                     {
-                        text: 'Идейные соображения высшего порядка, а также сложившаяся структура организации играет важную роль в формировании существенных финансовых и административных условий. Равным образом начало повседневной работы по формированию позиции представляет собой интересный эксперимент проверки направлений прогрессивного развития.',
-                        title: 'Title',
-                        likes: 40,
-                        img: '/images/category-title.svg'
+                        id: 1,
+                        title: 'Название категории',
+                        articles: []
                     },
                     {
-                        text: 'Идейные соображения высшего порядка, а также сложившаяся структура организации играет важную роль в формировании существенных финансовых и административных условий. Равным образом начало повседневной работы по формированию позиции представляет собой интересный эксперимент проверки направлений прогрессивного развития.',
-                        title: 'Title',
-                        likes: 40,
-                        img: '/images/category-title.svg'
-                    },
-                    {
-                        text: 'Идейные соображения высшего порядка, а также сложившаяся структура организации играет важную роль в формировании существенных финансовых и административных условий. Равным образом начало повседневной работы по формированию позиции представляет собой интересный эксперимент проверки направлений прогрессивного развития.',
-                        title: 'Title',
-                        likes: 40,
-                        img: '/images/category-title.svg'
+                        id: 2,
+                        title: 'Название категории#2',
+                        articles: []
                     }
                 ]
             }
