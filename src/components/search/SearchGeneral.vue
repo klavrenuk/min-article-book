@@ -25,6 +25,7 @@
             border-radius: 6px;
             padding: 0 40px 0 1rem;
             color: #A0A6BF;
+            box-sizing: border-box;
         }
     }
 </style>
