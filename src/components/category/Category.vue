@@ -84,6 +84,23 @@
 
 <style lang="less" scoped>
     .category {
+        &-title {
+            margin: 0 0 1rem;
+            color: #303446;
+            font-size: 24px;
+            line-height: 32px;
+
+            &-count {
+                position: relative;
+                top: -5px;
+                margin-left: .5rem;
+                color: #A0A6BF;
+                font-size: 16px;
+                line-height: 24px;
+                font-weight: 600;
+            }
+        }
+
         &-list {
             display: flex;
             flex-wrap: wrap;

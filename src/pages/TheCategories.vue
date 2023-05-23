@@ -1,11 +1,15 @@
 <template>
     <div class="categories">
         <div class="categories-header">
-            <button class="categories-header-button btn btn-primary">
-                Создать категорию
-            </button>
+            <div class="categories-header-left">
+                <button class="categories-header-button btn btn-primary">
+                    Создать категорию
+                </button>
+            </div>
 
-            <SearchGeneral />
+            <div class="categories-header-search">
+                <SearchGeneral />
+            </div>
         </div>
 
         <div class="categories-content">
@@ -46,6 +50,25 @@
     }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+    @widthLeftBlock: 242px;
 
+    .categories {
+        &-header {
+            margin-bottom: 48px;
+            display: flex;
+
+            &-left {
+                width: @widthLeftBlock;
+            }
+
+            & .categories-header-button {
+
+            }
+
+            &-search {
+                width: calc(100% - @widthLeftBlock);
+            }
+        }
+    }
 </style>
