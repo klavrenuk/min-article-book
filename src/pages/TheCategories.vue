@@ -50,7 +50,7 @@
     }
 </script>
 
-<style lang="less" scoped>
+<style lang="less">
     @widthLeftBlock: 242px;
 
     .categories {
@@ -68,6 +68,16 @@
 
             &-search {
                 width: calc(100% - @widthLeftBlock);
+            }
+        }
+
+        &-content {
+            & .category {
+                margin-bottom: 48px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
     }
