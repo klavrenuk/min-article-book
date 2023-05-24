@@ -117,6 +117,7 @@
                 console.log('saving....');
                 this.addCategories(this.category);
                 this.closeModalCategory();
+                console.log('finish');
             },
 
             onCancel() {

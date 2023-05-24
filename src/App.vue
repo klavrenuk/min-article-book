@@ -2,6 +2,8 @@
   <div id="app" class="app block_with_effect"
        :class="!$store.state.isLoading ? 'active' : ''"
   >
+    <button @click="showInfo()">show info</button>
+
     <LoaderGlobal v-if="$store.state.isLoading" />
 
     <div class="container" v-else>
@@ -29,7 +31,12 @@ export default {
   methods: {
     ...mapActions([
       'setLoading'
-    ])
+    ]),
+
+    showInfo() {
+      console.log('showInfo');
+      console.log(this.$store.state);
+    }
   },
 
   mounted() {
