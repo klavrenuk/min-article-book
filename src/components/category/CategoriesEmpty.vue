@@ -4,15 +4,19 @@
             Пока нет статей
         </h5>
         <p class="category_empty-description">Создайте свою первую  категорию и добавьте в неё статьи.</p>
-        <button class="btn btn-primary">
-            Создать категорию
-        </button>
+        <ButtonPrimary class="app_header-left-btn">
+            <slot>Создать категорию</slot>
+        </ButtonPrimary>
     </div>
 </template>
 
 <script>
+    import ButtonPrimary from "@/components/buttons/ButtonPrimary";
     export default {
-        name: "CategoriesEmpty"
+        name: "CategoriesEmpty",
+        components: {
+            ButtonPrimary
+        }
     }
 </script>
 

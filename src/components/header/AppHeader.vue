@@ -2,9 +2,9 @@
     <header class="app_header">
         <div class="app_header-container">
             <div class="app_header-left">
-                <button class="app_header-left-btn btn btn-primary">
-                    Создать категорию
-                </button>
+                <ButtonPrimary class="app_header-left-btn">
+                    <slot>Создать категорию</slot>
+                </ButtonPrimary>
             </div>
 
             <div class="app_header-search">
@@ -16,11 +16,13 @@
 
 <script>
     import SearchCategories from "@/components/search/SearchCategories";
+    import ButtonPrimary from "@/components/buttons/ButtonPrimary";
 
     export default {
         name: "AppHeader",
         components: {
-            SearchCategories
+            SearchCategories,
+            ButtonPrimary
         }
     }
 </script>
