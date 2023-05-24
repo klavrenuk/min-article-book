@@ -1,16 +1,6 @@
 <template>
     <div class="categories">
-        <div class="categories-header">
-            <div class="categories-header-left">
-                <button class="categories-header-button btn btn-primary">
-                    Создать категорию
-                </button>
-            </div>
-
-            <div class="categories-header-search">
-                <SearchGeneral />
-            </div>
-        </div>
+        <AppHeader />
 
         <div class="categories-content">
             <div v-if="!categories[0]">
@@ -26,16 +16,16 @@
 </template>
 
 <script>
-    import SearchGeneral from "@/components/search/SearchGeneral";
+    import AppHeader from '@/components/header/AppHeader';
     import Category from "@/components/category/Category";
     import CategoriesEmpty from "@/components/category/CategoriesEmpty";
 
     export default {
         name: "TheCategories",
         components: {
-            SearchGeneral,
             Category,
-            CategoriesEmpty
+            CategoriesEmpty,
+            AppHeader
         },
 
         data() {
@@ -47,26 +37,7 @@
 </script>
 
 <style lang="less">
-    @widthLeftBlock: 242px;
-
     .categories {
-        &-header {
-            margin-bottom: 48px;
-            display: flex;
-
-            &-left {
-                width: @widthLeftBlock;
-            }
-
-            & .categories-header-button {
-
-            }
-
-            &-search {
-                width: calc(100% - @widthLeftBlock);
-            }
-        }
-
         &-content {
             & .category_empty {
                 margin-top: 144px;

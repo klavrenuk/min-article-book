@@ -12,7 +12,7 @@
                      v-for="option in options"
                      :key="key"
                 >
-                    <input class="form_input"
+                    <input class="input"
                            :placeholder="option.label"
                            v-model="category[option.key]"
                            v-if="option.type === 'input'"
