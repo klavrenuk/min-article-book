@@ -35,3 +35,12 @@ p {
   color: #303446;
   font-weight: 600;
 }
+
+.block_with_effect {
+  opacity: 0;
+
+  &.active {
+    opacity: 1;
+    transition: opacity .3s linear;
+  }
+}

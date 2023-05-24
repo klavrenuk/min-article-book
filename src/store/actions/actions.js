@@ -1,7 +1,7 @@
 import Loading from './loading';
 
-const mutations = {
+const actions = {
     ...Loading
 }
 
-export default mutations;
+export default actions;
