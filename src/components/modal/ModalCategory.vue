@@ -26,6 +26,15 @@
                         <CustomSelect v-if="option.type === 'select'"
                                       :settings="option"
                                       :onSelected="onSelected"
+                                      :listOptions="[]"
+                        />
+
+                        <CustomSelect
+                                v-if="option.type === 'select'"
+                                type="multi"
+                                :onSelected="onSelected"
+                                :settings="option"
+                                :listOptions="$store.state.articles"
                         />
                     </div>
                 </form>
@@ -108,20 +117,15 @@
             },
 
             onSave() {
-                console.log('onSave', this.category);
                 this.invalidOptions = [];
 
                 if(!this.isValid()) return false;
 
-
-                console.log('saving....');
                 this.addCategories(this.category);
                 this.closeModalCategory();
-                console.log('finish');
             },
 
             onCancel() {
-                console.log('onCancel');
                 this.category = {};
                 this.closeModalCategory();
             },

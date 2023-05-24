@@ -5,7 +5,12 @@
                 @click="toggleView"
         >
             <label class="button_top-label" v-if="selectedItem">Label</label>
-            <span class="button_top-text">
+
+            <RowSelectedItems v-if="type === 'multi'"
+                              :list="selectedList"
+            />
+
+            <span class="button_top-text" v-if="type === 'default'">
                 {{ selectedItem ? selectedItem : settings.label }}
             </span>
             <i class="button_top-icon" />
@@ -13,19 +18,29 @@
 
         <ul class="custom_select-list" v-if="isShowOptions">
             <li class="custom_select-list-item"
-                v-for="(option,index) in options"
+                v-for="(option,index) in listOptions"
                 :key="`${option}-${index}`"
                 @click="onSelect(option)"
             >
-                <button class="custom_select-list-item-btn btn btn-empty">{{ option }}</button>
+                <button class="custom_select-list-item-btn btn btn-empty"
+                        :class="{'active': isActiveOption(option.id)}"
+                >
+                    {{ option.title }}
+                </button>
             </li>
         </ul>
     </div>
 </template>
 
 <script>
+    import RowSelectedItems from "@/components/select/RowSelectedItems";
+
     export default {
         name: "CustomSelect",
+
+        components: {
+            RowSelectedItems
+        },
 
         props: {
             settings: {
@@ -35,6 +50,15 @@
             onSelected: {
                 type: Function,
                 required: false
+            },
+            listOptions: {
+                type: Array,
+                required: true
+            },
+            type: {
+                type: String,
+                required: false,
+                default: 'default'
             }
         },
 
@@ -42,9 +66,8 @@
             return {
                 isShowOptions: false,
                 selectedItem: null,
-                options: [
-                    'item#1', 'item#2'
-                ]
+                selectedList: [],
+                selectedListIds: []
             }
         },
 
@@ -53,12 +76,35 @@
                 this.isShowOptions = !this.isShowOptions;
             },
 
-            onSelect(value) {
-                this.selectedItem = value;
+            isActiveOption(id) {
+                const index = this.selectedListIds.indexOf(id);
+                return index > -1
+            },
+
+            onSelect(item) {
                 this.toggleView();
 
+                if(this.type === 'multi') {
+                    const index = this.selectedListIds.indexOf(item.id);
+
+                    if(index > -1) {
+                        this.selectedList.splice(index, 1);
+                        this.selectedListIds.splice(index, 1);
+
+                    } else {
+                        this.selectedList.push(item);
+                        this.selectedListIds.push(item.id);
+                    }
+
+                } else {
+                    this.selectedItem = item.title;
+                }
+
                 if(this.onSelected) {
-                    this.onSelected(this.settings.key, value);
+                    this.onSelected(
+                        this.settings.key,
+                        this.type === 'multi' ? this.selectedList : this.selectedItem
+                    );
                 }
             }
         }
@@ -110,6 +156,8 @@
             top: 101%;
             left: 0;
             width: 100%;
+            height: 126px;
+            overflow-y: auto;
             padding: 8px 9px;
             border-radius: 5px;
             z-index: 8;
@@ -125,10 +173,8 @@
                     line-height: 22px;
                     text-align: left;
                     cursor: pointer;
-                }
 
-                &:hover, &:active, &.active {
-                    & .custom_select-list-item-btn {
+                    &:hover, &:active, &.active {
                         background: rgba(48, 52, 70, 0.03);
                     }
                 }

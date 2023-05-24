@@ -13,6 +13,7 @@ const Modal = {
 
     showModalRemove(state, item) {
         state.isShowModalRemove = true;
+        console.log('item', item);
     },
 
     hideModalRemove(state) {

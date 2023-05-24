@@ -9,15 +9,9 @@ Vue.use(Vuex)
 const state = {
     modalCategory: null,
     isLoading: true,
-    categories: [
-        {
-            id: 1,
-            articles: ["item#2"],
-            name: 'faeke name',
-            parent: '111'
-        }
-    ],
-    isShowModalRemove: false
+    categories: [],
+    isShowModalRemove: false,
+    articles: []
 }
 
 export default new Vuex.Store({

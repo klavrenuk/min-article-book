@@ -19,6 +19,7 @@ import TheCategories from "@/pages/TheCategories";
 import ModalCategory from "@/components/modal/ModalCategory";
 import LoaderGlobal from "@/components/loaders/LoaderGlobal";
 import {mapActions} from 'vuex';
+import articles from '@/mock/articles.json';
 
 export default {
   name: 'App',
@@ -30,7 +31,8 @@ export default {
 
   methods: {
     ...mapActions([
-      'setLoading'
+      'setLoading',
+      'setArticles'
     ]),
 
     showInfo() {
@@ -41,8 +43,9 @@ export default {
 
   mounted() {
     setTimeout(() => {
+      this.setArticles(articles);
       this.setLoading(false);
-    }, 600);
+    }, 1000);
   }
 }
 </script>
