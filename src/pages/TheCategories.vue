@@ -13,9 +13,14 @@
         </div>
 
         <div class="categories-content">
-            <Category v-for="category in categories"
-                      :key="category.id"
-            />
+            <div v-if="!categories[0]">
+                <CategoriesEmpty />
+            </div>
+            <div v-else>
+                <Category v-for="category in categories"
+                          :key="category.id"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -23,28 +28,19 @@
 <script>
     import SearchGeneral from "@/components/search/SearchGeneral";
     import Category from "@/components/category/Category";
+    import CategoriesEmpty from "@/components/category/CategoriesEmpty";
 
     export default {
         name: "TheCategories",
         components: {
             SearchGeneral,
-            Category
+            Category,
+            CategoriesEmpty
         },
 
         data() {
             return {
-                categories: [
-                    {
-                        id: 1,
-                        title: 'Название категории',
-                        articles: []
-                    },
-                    {
-                        id: 2,
-                        title: 'Название категории#2',
-                        articles: []
-                    }
-                ]
+                categories: []
             }
         }
     }
@@ -72,6 +68,10 @@
         }
 
         &-content {
+            & .category_empty {
+                margin-top: 144px;
+            }
+
             & .category {
                 margin-bottom: 48px;
 
