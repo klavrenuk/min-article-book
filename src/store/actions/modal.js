@@ -1,12 +1,18 @@
 const Modal = {
     showModalCategory({commit}, options) {
-        console.log('action');
         commit('showModalCategory', options);
     },
 
     closeModalCategory({commit}) {
-        console.log('close modal category');
         commit('closeModalCategory');
+    },
+
+    showModalRemove({commit}, item) {
+        commit('showModalRemove', item);
+    },
+
+    hideModalRemove({commit}) {
+        commit('hideModalRemove');
     }
 }
 

@@ -11,11 +11,13 @@ const state = {
     isLoading: true,
     categories: [
         {
+            id: 1,
             articles: ["item#2"],
             name: 'faeke name',
             parent: '111'
         }
-    ]
+    ],
+    isShowModalRemove: false
 }
 
 export default new Vuex.Store({

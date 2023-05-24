@@ -7,9 +7,10 @@
                 <CategoriesEmpty />
             </div>
             <div v-else>
-                <Category v-for="category in $store.state.categories"
+                <Category v-for="(category,index) in $store.state.categories"
                           :key="category.id"
                           :category="category"
+                          :index="index"
                 />
             </div>
         </div>

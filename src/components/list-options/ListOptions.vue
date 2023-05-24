@@ -6,7 +6,7 @@
                 :key="option.key"
             >
                 <button class="list_options-item-btn"
-                        @click="onSelectOption"
+                        @click="onSelectOption(option.key)"
                 >
                     {{ option.name }}
                 </button>

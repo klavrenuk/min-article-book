@@ -9,6 +9,14 @@ const Modal = {
 
     closeModalCategory(state) {
         state.modalCategory = null;
+    },
+
+    showModalRemove(state, item) {
+        state.isShowModalRemove = true;
+    },
+
+    hideModalRemove(state) {
+        state.isShowModalRemove = false;
     }
 }
 

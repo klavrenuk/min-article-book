@@ -39,6 +39,7 @@
 <script>
     import CategoryArticleCard from "@/components/category/CategoryArticleCard";
     import ListOptions from "@/components/list-options/ListOptions";
+    import {mapActions} from 'vuex';
 
     export default {
         name: "CardCategory",
@@ -50,6 +51,10 @@
         props: {
             category: {
                 type: Object,
+                required: true
+            },
+            index: {
+                type: Number,
                 required: true
             }
         },
@@ -67,6 +72,11 @@
         },
 
         methods: {
+            ...mapActions([
+                'showModalRemove',
+                'showModalCategory'
+            ]),
+
             toggleView() {
                 this.isShowArticles = !this.isShowArticles;
             },
@@ -75,9 +85,23 @@
                 this.isShowListOptions = !this.isShowListOptions;
             },
 
-            onSelectOption() {
-                console.log('onSelectOptions');
+            onSelectOption(key) {
                 this.toggleViewOptions();
+
+                const options = {
+                    category: this.category,
+                    index: this.index
+                };
+
+                switch (key) {
+                    case 'remove':
+                        this.showModalRemove(options);
+                        break;
+
+                    case 'edit':
+                        this.showModalCategory(options);
+                        break;
+                }
             }
         }
     }
