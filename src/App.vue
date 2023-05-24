@@ -2,17 +2,21 @@
   <div id="app" class="app">
     <div class="container">
       <TheCategories />
+
+      <ModalCategory />
     </div>
   </div>
 </template>
 
 <script>
 import TheCategories from "@/pages/TheCategories";
+import ModalCategory from "@/components/modal/ModalCategory";
 
 export default {
   name: 'App',
   components: {
-    TheCategories
+    TheCategories,
+    ModalCategory
   }
 }
 </script>
