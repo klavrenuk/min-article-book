@@ -7,7 +7,7 @@
     <div class="container" v-else>
       <TheCategories />
 
-      <ModalCategory v-if="false" />
+      <ModalCategory />
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
   methods: {
     ...mapActions([
       'setLoading'
-    ]),
+    ])
   },
 
   mounted() {

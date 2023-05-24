@@ -1,7 +1,11 @@
 import Loading from './loading';
+import Modal from './modal';
+import Categories from './categories';
 
 const mutations = {
-    ...Loading
+    ...Loading,
+    ...Modal,
+    ...Categories
 }
 
 export default mutations;

@@ -8,7 +8,8 @@ Vue.use(Vuex)
 
 const state = {
     modalCategory: null,
-    isLoading: true
+    isLoading: true,
+    categories: []
 }
 
 export default new Vuex.Store({

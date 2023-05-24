@@ -4,7 +4,9 @@
             Пока нет статей
         </h5>
         <p class="category_empty-description">Создайте свою первую  категорию и добавьте в неё статьи.</p>
-        <ButtonPrimary class="app_header-left-btn">
+        <ButtonPrimary class="app_header-left-btn"
+                       :onClick="onCreateCategory"
+        >
             <slot>Создать категорию</slot>
         </ButtonPrimary>
     </div>
@@ -12,10 +14,21 @@
 
 <script>
     import ButtonPrimary from "@/components/buttons/ButtonPrimary";
+    import {mapActions} from 'vuex';
+
     export default {
         name: "CategoriesEmpty",
         components: {
             ButtonPrimary
+        },
+        methods: {
+            ...mapActions([
+                'showModalCategory'
+            ]),
+
+            onCreateCategory() {
+                this.showModalCategory();
+            }
         }
     }
 </script>

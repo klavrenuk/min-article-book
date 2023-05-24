@@ -3,12 +3,13 @@
         <AppHeader />
 
         <div class="categories-content">
-            <div v-if="!categories[0]">
+            <div v-if="!$store.state.categories[0]">
                 <CategoriesEmpty />
             </div>
             <div v-else>
-                <Category v-for="category in categories"
+                <Category v-for="category in $store.state.categories"
                           :key="category.id"
+                          :category="category"
                 />
             </div>
         </div>
@@ -26,12 +27,6 @@
             Category,
             CategoriesEmpty,
             AppHeader
-        },
-
-        data() {
-            return {
-                categories: []
-            }
         }
     }
 </script>

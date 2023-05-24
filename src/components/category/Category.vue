@@ -1,7 +1,7 @@
 <template>
     <section class="category">
         <h3 class="category-title">
-            Название категории
+            {{ category.name }}
             <span class="category-title-count">(4)</span>
         </h3>
 
@@ -23,6 +23,13 @@
         name: "CardCategory",
         components: {
             CategoryArticleCard
+        },
+
+        props: {
+            category: {
+                type: Object,
+                required: true
+            }
         },
 
         data() {

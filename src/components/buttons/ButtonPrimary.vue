@@ -1,5 +1,7 @@
 <template>
-    <button class="btn btn-primary">
+    <button class="btn btn-primary"
+            @click="onClick()"
+    >
         <div class="btn-primary-container">
             <span class="btn-primary-text">
             <slot></slot>
@@ -14,7 +16,13 @@
 
 <script>
     export default {
-        name: "ButtonPrimary"
+        name: "ButtonPrimary",
+        props: {
+            onClick: {
+                type: Function,
+                required: false
+            }
+        }
     }
 </script>
 

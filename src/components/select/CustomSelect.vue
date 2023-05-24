@@ -4,9 +4,9 @@
                 type="button"
                 @click="toggleView"
         >
-            <label class="button_top-label">Label</label>
+            <label class="button_top-label" v-if="selectedItem">Label</label>
             <span class="button_top-text">
-                {{ selectedItem ? selectedItem : ''}}
+                {{ selectedItem ? selectedItem : settings.label }}
             </span>
             <i class="button_top-icon" />
         </button>
@@ -27,6 +27,17 @@
     export default {
         name: "CustomSelect",
 
+        props: {
+            settings: {
+                type: Object,
+                required: true
+            },
+            onSelected: {
+                type: Function,
+                required: false
+            }
+        },
+
         data() {
             return {
                 isShowOptions: false,
@@ -42,9 +53,13 @@
                 this.isShowOptions = !this.isShowOptions;
             },
 
-            onSelect(option) {
-                this.selectedItem = option;
+            onSelect(value) {
+                this.selectedItem = value;
                 this.toggleView();
+
+                if(this.onSelected) {
+                    this.onSelected(this.settings.key, value);
+                }
             }
         }
     }
