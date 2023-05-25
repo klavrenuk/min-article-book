@@ -3,7 +3,7 @@
         <div class="category-header">
             <h3 class="category-title">
                 {{ category.name }}
-                <span class="category-title-count">(4)</span>
+                <span class="category-title-count">({{ category.articles.length }})</span>
             </h3>
 
             <div class="category-header-control">
@@ -27,7 +27,7 @@
             v-if="isShowArticles"
         >
             <li class="category-list-item"
-                v-for="article in articles"
+                v-for="article in category.articles"
                 :key="article.id"
             >
                 <CategoryArticleCard :article="article" />
@@ -61,7 +61,6 @@
 
         data() {
             return {
-                articles: [],
                 isShowArticles: true,
                 controlOptions: [
                     {key: 'edit', name: 'Редактировать'},
@@ -74,7 +73,7 @@
         methods: {
             ...mapActions([
                 'showModalRemove',
-                'showModalCategory'
+                'showModalCategory',
             ]),
 
             toggleView() {
@@ -88,18 +87,16 @@
             onSelectOption(key) {
                 this.toggleViewOptions();
 
-                const options = {
-                    category: this.category,
-                    index: this.index
-                };
-
                 switch (key) {
                     case 'remove':
-                        this.showModalRemove(options);
+                        this.showModalRemove({index: this.index});
                         break;
 
                     case 'edit':
-                        this.showModalCategory(options);
+                        this.showModalCategory({
+                            category: this.category,
+                            index: this.index
+                        });
                         break;
                 }
             }

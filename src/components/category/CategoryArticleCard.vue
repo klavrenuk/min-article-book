@@ -1,9 +1,11 @@
 <template>
     <div class="category_article_card">
         <div class="category_article_card-top">
-            <BlockLikes :count="article.likes" />
+            <BlockLikes :likes="article.likes" />
 
-            <button class="btn btn-icon category_article_card-top-edit"></button>
+            <button class="btn btn-icon category_article_card-top-edit"
+                    @click="onEditArticle()"
+            ></button>
         </div>
 
         <div class="category_article_card-wrap_img">
@@ -14,17 +16,18 @@
         </div>
 
         <h3 class="category_article_card-title">
-            {{ article.title}}
+            {{ article.name}}
         </h3>
         <p class="category_article_card-text">
             {{ article.text }}
         </p>
-
     </div>
 </template>
 
 <script>
     import BlockLikes from "@/components/likes/BlockLikes";
+    import ArticleModalBody from "@/components/articles/ArticleModalBody";
+    import {mapActions} from 'vuex';
 
     export default {
         name: "CategoryArticle",
@@ -35,6 +38,23 @@
             article: {
                 type: Object,
                 required: true
+            }
+        },
+
+        methods: {
+            ...mapActions([
+                'showModalDefault',
+                'saveArticle'
+            ]),
+
+            onEditArticle() {
+                console.log('onEdit');
+
+                this.showModalDefault({
+                    title: 'Изменение расположения статьи',
+                    save: this.saveArticle,
+                    content: ArticleModalBody
+                })
             }
         }
     }

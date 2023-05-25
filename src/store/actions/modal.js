@@ -1,5 +1,5 @@
 const Modal = {
-    showModalCategory({commit}, options) {
+    showModalCategory({commit}, options = null) {
         commit('showModalCategory', options);
     },
 
@@ -7,8 +7,16 @@ const Modal = {
         commit('closeModalCategory');
     },
 
-    showModalRemove({commit}, item) {
-        commit('showModalRemove', item);
+    showModalDefault({commit}, options = {}) {
+        commit('showModalDefault', options);
+    },
+
+    closeModalDefault({commit}) {
+        commit('closeModalDefault');
+    },
+
+    showModalRemove({commit}, options) {
+        commit('showModalRemove', options);
     },
 
     hideModalRemove({commit}) {

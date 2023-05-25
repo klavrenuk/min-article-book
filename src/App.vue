@@ -9,7 +9,9 @@
     <div class="container" v-else>
       <TheCategories />
 
-      <ModalCategory />
+      <ModalCategory v-if="isShowModalCategory" />
+      <ModalRemove v-if="isShowModalRemove" />
+      <ModalDefault v-if="isShowModalDefault" />
     </div>
   </div>
 </template>
@@ -18,15 +20,27 @@
 import TheCategories from "@/pages/TheCategories";
 import ModalCategory from "@/components/modal/ModalCategory";
 import LoaderGlobal from "@/components/loaders/LoaderGlobal";
-import {mapActions} from 'vuex';
+import ModalRemove from "@/components/modal/ModalRemove";
+import ModalDefault from "@/components/modal/ModalDefault";
+import {mapActions, mapGetters} from 'vuex';
 import articles from '@/mock/articles.json';
 
 export default {
   name: 'App',
   components: {
+    ModalDefault,
+    ModalRemove,
     LoaderGlobal,
     TheCategories,
     ModalCategory
+  },
+
+  computed: {
+    ...mapGetters([
+      'isShowModalCategory',
+      'isShowModalRemove',
+      'isShowModalDefault'
+    ])
   },
 
   methods: {
@@ -52,4 +66,8 @@ export default {
 
 <style lang="less">
   @import './assets/styles.min.css';
+
+  .app {
+    padding-bottom: 112px;
+  }
 </style>

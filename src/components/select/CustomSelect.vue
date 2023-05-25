@@ -25,7 +25,7 @@
                 <button class="custom_select-list-item-btn btn btn-empty"
                         :class="{'active': isActiveOption(option.id)}"
                 >
-                    {{ option.title }}
+                    {{ option.name }}
                 </button>
             </li>
         </ul>
@@ -59,6 +59,10 @@
                 type: String,
                 required: false,
                 default: 'default'
+            },
+            selectedDefault: {
+                type: Array,
+                required: false
             }
         },
 
@@ -97,15 +101,27 @@
                     }
 
                 } else {
-                    this.selectedItem = item.title;
+                    this.selectedItem = item.name;
                 }
 
                 if(this.onSelected) {
                     this.onSelected(
                         this.settings.key,
-                        this.type === 'multi' ? this.selectedList : this.selectedItem
+                        this.type === 'multi' ? this.selectedList : item
                     );
                 }
+            }
+        },
+
+        mounted() {
+            if(Array.isArray(this.selectedDefault)) {
+                this.selectedList = this.selectedDefault.slice();
+                this.selectedListIds = this.selectedDefault.map((item) => {
+                    return item.id;
+                });
+
+
+                console.log('selectedListIds', this.selectedListIds);
             }
         }
     }

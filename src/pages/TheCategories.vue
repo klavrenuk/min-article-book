@@ -7,7 +7,7 @@
                 <CategoriesEmpty />
             </div>
             <div v-else>
-                <Category v-for="(category,index) in $store.state.categories"
+                <Category v-for="(category,index) in categories"
                           :key="category.id"
                           :category="category"
                           :index="index"
@@ -28,6 +28,45 @@
             Category,
             CategoriesEmpty,
             AppHeader
+        },
+
+        data() {
+            return {
+                categories: []
+            }
+        },
+
+        watch: {
+            '$store.state.filterArticles': function(value) {
+                this.filterCategories(value);
+            }
+        },
+
+        methods: {
+            filterCategories(searchTitle) {
+                const arrCopy = JSON.parse(JSON.stringify(this.$store.state.categories));
+
+                if(searchTitle === '') {
+                    this.categories = arrCopy.slice();
+
+                } else {
+                    this.categories = arrCopy.filter((category) => {
+                        if(category.articles) {
+                            category.articles = category.articles.filter((article) => {
+                                if(article.name.toLowerCase().search(searchTitle.toLowerCase()) > -1) {
+                                    return article;
+                                }
+                            })
+                        }
+
+                        return category;
+                    })
+                }
+            }
+        },
+
+        mounted() {
+            this.categories = this.$store.state.categories;
         }
     }
 </script>

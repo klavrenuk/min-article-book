@@ -1,8 +1,14 @@
 <template>
     <div class="likes">
         <div class="likes-container">
-            <button class="likes-container-btn btn btn-icon"></button>
-            <span class="likes-container-count">{{ count }}</span>
+            <button class="likes-container-btn btn btn-icon"
+                    @click="increase()"
+            >
+                <img src="/images/like.svg"
+                     alt="Иконка лайка"
+                />
+                <span class="count">{{ count }}</span>
+            </button>
         </div>
     </div>
 </template>
@@ -11,12 +17,24 @@
     export default {
         name: "BlockLikes",
         props: {
-            count: {
+            likes: {
                 type: Number,
                 required: false,
                 default: 0
             }
-        }
+        },
+
+        data() {
+            return {
+                count: this.likes
+            }
+        },
+
+        methods: {
+            increase() {
+                this.count++;
+            }
+        },
     }
 </script>
 
@@ -27,21 +45,16 @@
             align-items: center;
 
             &-btn {
-                width: 12px;
-                height: 12px;
-                margin-right: 6px;
-                background-image: url('/public/images/like.svg');
+                display: flex;
+                align-items: center;
 
-                &:hover, &:active {
-                    background-image: url('/public/images/like-effect.svg');
+                & .count {
+                    margin-left: 6px;
+                    color: #A0A6BF;
+                    font-size: 12px;
+                    font-weight: 500;
+                    line-height: 15px;
                 }
-            }
-
-            &-count {
-                color: #A0A6BF;
-                font-size: 12px;
-                font-weight: 500;
-                line-height: 15px;
             }
         }
     }

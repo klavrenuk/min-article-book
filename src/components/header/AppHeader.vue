@@ -2,7 +2,9 @@
     <header class="app_header">
         <div class="app_header-container">
             <div class="app_header-left">
-                <ButtonPrimary class="app_header-left-btn">
+                <ButtonPrimary class="app_header-left-btn"
+                               :onClick="showModalCategory"
+                >
                     <slot>Создать категорию</slot>
                 </ButtonPrimary>
             </div>
@@ -17,12 +19,18 @@
 <script>
     import SearchCategories from "@/components/search/SearchCategories";
     import ButtonPrimary from "@/components/buttons/ButtonPrimary";
+    import {mapActions} from "vuex";
 
     export default {
         name: "AppHeader",
         components: {
             SearchCategories,
             ButtonPrimary
+        },
+        methods: {
+            ...mapActions([
+                'showModalCategory'
+            ])
         }
     }
 </script>

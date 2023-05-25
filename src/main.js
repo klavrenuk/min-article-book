@@ -1,8 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store/store';
+import debounce from 'v-debounce'
 
 Vue.config.productionTip = false
+
+Vue.use(debounce);
 
 new Vue({
   render: h => h(App),

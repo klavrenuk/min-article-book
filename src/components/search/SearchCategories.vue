@@ -2,14 +2,42 @@
     <div class="search_categories">
         <input class="search_categories-input input"
                placeholder="Найти статью"
+               v-model.lazy="searchStr"
+               v-debounce="delay"
         />
         <button class="btn btn-icon search_categories-magnifier"></button>
     </div>
 </template>
 
 <script>
+    import { directive } from 'v-debounce';
+    import {mapActions} from 'vuex';
+
     export default {
-        name: "SearchCategories"
+        name: "SearchCategories",
+
+        data() {
+            return {
+                searchStr: null,
+                delay: 600
+            }
+        },
+
+        directives: {
+            debounce: directive
+        },
+
+        watch: {
+            searchStr(str) {
+                this.setFilterArticles(str);
+            }
+        },
+
+        methods: {
+            ...mapActions([
+                'setFilterArticles'
+            ])
+        }
     }
 </script>
 

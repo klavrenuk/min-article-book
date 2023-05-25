@@ -1,6 +1,5 @@
 const Modal = {
     showModalCategory(state, value) {
-        console.log('mutation');
         state.modalCategory = {
             ...value,
             isShow: true
@@ -11,13 +10,23 @@ const Modal = {
         state.modalCategory = null;
     },
 
-    showModalRemove(state, item) {
-        state.isShowModalRemove = true;
-        console.log('item', item);
+    showModalDefault(state, options) {
+        state.modalDefault = {
+            ...options,
+            isShow: true
+        }
+    },
+
+    closeModalDefault(state) {
+        state.modalDefault = null;
+    },
+
+    showModalRemove(state, options) {
+        state.modalRemove = options;
     },
 
     hideModalRemove(state) {
-        state.isShowModalRemove = false;
+        state.modalRemove = null;
     }
 }
 

@@ -1,7 +1,5 @@
 <template>
-    <div class="modal_category modal"
-         v-if="isShowModalCategory"
-    >
+    <div class="modal_category modal">
         <div class="modal-container">
             <div class="modal_category-header">
                 <h2 class="modal_category-header-title">
@@ -10,7 +8,7 @@
             </div>
 
             <div class="modal_category-body">
-                <form>
+                <form v-if="isShowForm">
                     <div class="form-group"
                          v-for="option in options"
                          :key="option.key"
@@ -30,11 +28,12 @@
                         />
 
                         <CustomSelect
-                                v-if="option.type === 'select'"
+                                v-if="option.type === 'selectMulty'"
                                 type="multi"
                                 :onSelected="onSelected"
                                 :settings="option"
                                 :listOptions="$store.state.articles"
+                                :selectedDefault="category.articles"
                         />
                     </div>
                 </form>
@@ -58,7 +57,7 @@
 
 <script>
     import CustomSelect from "@/components/select/CustomSelect";
-    import { mapGetters, mapActions } from 'vuex'
+    import {mapActions, mapGetters } from 'vuex'
 
     export default {
         name: "ModalCategory",
@@ -85,25 +84,28 @@
                     {
                         key: 'articles',
                         label: 'Вложенные статьи',
-                        type: 'select',
+                        type: 'selectMulty',
                         isRequired: true
                     }
                 ],
                 category: {},
-                invalidOptions: []
+                invalidOptions: [],
+                isShowForm: false
             }
         },
 
         computed: {
             ...mapGetters([
-                'isShowModalCategory'
+                'modalCategoryInfo',
+                'modalCategoryIndex'
             ])
         },
 
         methods: {
             ...mapActions([
                 'closeModalCategory',
-                'addCategories'
+                'addCategory',
+                'editCategory'
             ]),
 
             isValid() {
@@ -121,7 +123,17 @@
 
                 if(!this.isValid()) return false;
 
-                this.addCategories(this.category);
+                if(this.modalCategoryIndex > -1) {
+                    const options = {
+                        index: this.modalCategoryIndex,
+                        category: this.category
+                    };
+                    this.editCategory(options);
+
+                } else {
+                    this.addCategory(this.category);
+                }
+
                 this.closeModalCategory();
             },
 
@@ -135,7 +147,14 @@
             }
         },
 
-        created() {
+        mounted() {
+            if(this.modalCategoryInfo) {
+                this.category = JSON.parse(JSON.stringify(this.modalCategoryInfo));
+            }
+
+            setTimeout(() => {
+                this.isShowForm = true;
+            }, 0);
         }
     }
 </script>
