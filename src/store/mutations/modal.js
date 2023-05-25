@@ -1,19 +1,15 @@
 const Modal = {
-    showModalCategory(state, value) {
-        state.modalCategory = {
-            ...value,
-            isShow: true
-        }
-    },
-
-    closeModalCategory(state) {
-        state.modalCategory = null;
-    },
-
     showModalDefault(state, options) {
         state.modalDefault = {
             ...options,
             isShow: true
+        }
+    },
+
+    setModalState(state, options) {
+        state.modalDefault = {
+            ...state.modalDefault,
+            ...options
         }
     },
 

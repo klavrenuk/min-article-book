@@ -8,7 +8,7 @@
             </div>
 
             <div class="modal_default-body" v-if="modal.content">
-                <component :is="modal.content" />
+                <component :is="modal.content" :data="modal" />
             </div>
 
             <div class="modal_default-footer">
@@ -51,17 +51,13 @@
                 'closeModalDefault'
             ]),
 
-
             onSave() {
-                console.log('save');
                 if(this.modal.save) {
-                    console.log('inner');
                     this.modal.save();
                 }
             },
 
             onCancel() {
-                console.log('cancel');
                 this.closeModalDefault();
             }
         },
@@ -70,8 +66,6 @@
             if(this.modalDefault) {
                 this.modal = this.modalDefault;
             }
-
-            console.log('modal', this.modal)
 
             setTimeout(() => {
                 this.isShowContent = true;

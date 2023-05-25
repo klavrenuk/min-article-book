@@ -23,11 +23,11 @@
         },
         methods: {
             ...mapActions([
-                'showModalCategory'
+
             ]),
 
             onCreateCategory() {
-                this.showModalCategory();
+                alert('xxx');
             }
         }
     }

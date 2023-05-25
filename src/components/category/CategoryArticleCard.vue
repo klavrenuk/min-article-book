@@ -48,12 +48,11 @@
             ]),
 
             onEditArticle() {
-                console.log('onEdit');
-
                 this.showModalDefault({
                     title: 'Изменение расположения статьи',
                     save: this.saveArticle,
-                    content: ArticleModalBody
+                    content: ArticleModalBody,
+                    articleId: this.article.id
                 })
             }
         }

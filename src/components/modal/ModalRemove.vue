@@ -1,6 +1,8 @@
 <template>
     <div class="modal_remove modal">
-        <div class="modal-container">
+        <div class="modal-container"
+             v-click-outside="onClickOutside"
+        >
             <div class="modal_remove-header">
                 <img src="/images/icon-question.svg"
                      alt="Вопрос"
@@ -48,6 +50,10 @@
             onRemove() {
                 this.removeCategory(this.$store.state.modalRemove);
                 this.hideModalRemove();
+            },
+
+            onClickOutside() {
+                this.hideModalRemove();
             }
         }
     }
@@ -56,18 +62,20 @@
 <style lang="less" scoped>
     .modal_remove {
         & .modal-container {
-            height: 300px;
+            padding: 36px 0 46px;
         }
 
         &-header {
             margin-bottom: 1rem;
+            text-align: center;
         }
 
         &-body {
             padding-bottom: 32px;
+            text-align: center;
 
             &-title {
-                margin-top: 4px;
+                margin: 4px 0 0;
                 color: #303446;
                 font-size: 16px;
                 line-height: 24px;

@@ -1,10 +1,12 @@
 <template>
     <section class="category">
         <div class="category-header">
-            <h3 class="category-title">
-                {{ category.name }}
-                <span class="category-title-count">({{ category.articles.length }})</span>
-            </h3>
+            <button @click="toggleView()" class="btn btn-empty wrap-category-title">
+                <h3 class="category-title">
+                    {{ category.name }}
+                    <span class="category-title-count">({{ category.articles.length }})</span>
+                </h3>
+            </button>
 
             <div class="category-header-control">
                 <button class="btn btn-icon btn_toggle_view"
@@ -18,6 +20,7 @@
                 <ListOptions
                         :options="controlOptions"
                         :onSelectOption="onSelectOption"
+                        :toggleViewOptions="toggleViewOptions"
                         v-if="isShowListOptions"
                 />
             </div>
@@ -33,12 +36,25 @@
                 <CategoryArticleCard :article="article" />
             </li>
         </ul>
+
+        <div class="category-subcategories">
+            <ul class="subcategories-list">
+                <li v-for="subCategory of category.subCategories"
+                    :key="subCategory.id"
+                >
+                    <CardCategory :category="subCategory"
+                                  :isShowDefaultArticles="false"
+                    />
+                </li>
+            </ul>
+        </div>
     </section>
 </template>
 
 <script>
     import CategoryArticleCard from "@/components/category/CategoryArticleCard";
     import ListOptions from "@/components/list-options/ListOptions";
+    import CategoryModalBody from '@/components/category/CategoryModalBody';
     import {mapActions} from 'vuex';
 
     export default {
@@ -55,13 +71,19 @@
             },
             index: {
                 type: Number,
-                required: true
+                required: false,
+                default: -2
+            },
+            isShowDefaultArticles: {
+                type: Boolean,
+                required: false,
+                default: true
             }
         },
 
         data() {
             return {
-                isShowArticles: true,
+                isShowArticles: this.isShowDefaultArticles,
                 controlOptions: [
                     {key: 'edit', name: 'Редактировать'},
                     {key: 'remove', name: 'Удалить'}
@@ -73,7 +95,8 @@
         methods: {
             ...mapActions([
                 'showModalRemove',
-                'showModalCategory',
+                'showModalDefault',
+                'editCategory'
             ]),
 
             toggleView() {
@@ -93,10 +116,13 @@
                         break;
 
                     case 'edit':
-                        this.showModalCategory({
+                        this.showModalDefault({
+                            categoryIndex: this.index,
                             category: this.category,
-                            index: this.index
-                        });
+                            title: 'Редактирование категории',
+                            save: this.editCategory,
+                            content: CategoryModalBody
+                        })
                         break;
                 }
             }
@@ -110,6 +136,14 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+
+            & .wrap-category-title {
+                &:hover, &:active {
+                    & .category-title {
+                        color: #ED5252;
+                    }
+                }
+            }
 
             &-title {
                 width: 80%;
@@ -137,6 +171,10 @@
                     height: 24px;
                     background: url('/public/images/icon-toggle-articles.svg') center center no-repeat;
 
+                    &.close {
+                        transform: rotate(180deg);
+                    }
+
                     &:hover, &:active {
                         background: url('/public/images/icon-toggle-articles-effect.svg') center center no-repeat;
                     }
@@ -159,10 +197,6 @@
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
-
-            &-item {
-
-            }
         }
     }
 </style>

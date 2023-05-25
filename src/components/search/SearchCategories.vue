@@ -57,7 +57,7 @@
 
         &-magnifier {
             position: absolute;
-            top: 10px;
+            top: 11px;
             right: 20px;
             z-index: 2;
             background-image: url('/public/images/magnifier.svg') !important;

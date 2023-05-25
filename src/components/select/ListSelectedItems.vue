@@ -1,15 +1,20 @@
 <template>
     <ul class="list_selected_items">
-        <li v-for="(category,index) in categories"
-            :key="category.id"
+        <li v-for="(item,index) in items"
+            :key="item.id"
             class="selected_item"
         >
-            <button class="selected_item-remove btn btn-primary" @click="onRemove(index)">
-                <img src="/images/icon-trash.svg"
-                     alt="Иконка удаления"
-                />
+            <button class="selected_item-remove btn btn-primary"
+                    @click="onRemove(index)"
+                    type="button"
+            >
+                <div class="selected_item-remove-container">
+                    <img src="/images/icon-trash.svg"
+                         alt="Иконка удаления"
+                    />
+                </div>
             </button>
-            <span class="selected_item-name">{{ category.name }}</span>
+            <span class="selected_item-name">{{ item.name }}</span>
         </li>
     </ul>
 </template>
@@ -19,7 +24,7 @@
         name: "RowSelectedCategories",
 
         props: {
-            categories: {
+            items: {
                 type: Array,
                 required: false
             },
@@ -40,12 +45,20 @@
 
         & .selected_item {
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
 
             &-remove {
                 height: 24px;
                 width: 24px;
                 margin-right: 12px;
                 padding: 0;
+
+                &-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
 
             &-name {

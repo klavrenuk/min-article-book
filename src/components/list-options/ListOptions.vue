@@ -1,5 +1,5 @@
 <template>
-    <div class="list_options">
+    <div class="list_options" v-click-outside="onClickOutside">
         <ul>
             <li class="list_options-item"
                 v-for="option in options"
@@ -27,6 +27,18 @@
             onSelectOption: {
                 type: Function,
                 required: true
+            },
+            toggleViewOptions: {
+                type: Function,
+                required: false
+            }
+        },
+
+        methods: {
+            onClickOutside() {
+                if(this.toggleViewOptions) {
+                    this.toggleViewOptions();
+                }
             }
         }
     }
@@ -41,6 +53,7 @@
         border-radius: 5px;
         z-index: 8;
         box-shadow: 0 10px 40px rgba(0, 0, 0, 0.07);
+        background: #fff;
 
         &-item {
             margin-bottom: 4px;

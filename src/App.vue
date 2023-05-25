@@ -1,15 +1,14 @@
 <template>
-  <div id="app" class="app block_with_effect"
-       :class="!$store.state.isLoading ? 'active' : ''"
-  >
+  <div id="app" class="app">
     <button @click="showInfo()">show info</button>
 
     <LoaderGlobal v-if="$store.state.isLoading" />
 
-    <div class="container" v-else>
+    <div class="container block_with_effect"
+         :class="!$store.state.isLoading ? 'active' : ''"
+         v-else>
       <TheCategories />
 
-      <ModalCategory v-if="isShowModalCategory" />
       <ModalRemove v-if="isShowModalRemove" />
       <ModalDefault v-if="isShowModalDefault" />
     </div>
@@ -18,12 +17,12 @@
 
 <script>
 import TheCategories from "@/pages/TheCategories";
-import ModalCategory from "@/components/modal/ModalCategory";
 import LoaderGlobal from "@/components/loaders/LoaderGlobal";
 import ModalRemove from "@/components/modal/ModalRemove";
 import ModalDefault from "@/components/modal/ModalDefault";
 import {mapActions, mapGetters} from 'vuex';
 import articles from '@/mock/articles.json';
+import {initDb, readDb} from '@/DataBase';
 
 export default {
   name: 'App',
@@ -31,13 +30,11 @@ export default {
     ModalDefault,
     ModalRemove,
     LoaderGlobal,
-    TheCategories,
-    ModalCategory
+    TheCategories
   },
 
   computed: {
     ...mapGetters([
-      'isShowModalCategory',
       'isShowModalRemove',
       'isShowModalDefault'
     ])
@@ -46,7 +43,8 @@ export default {
   methods: {
     ...mapActions([
       'setLoading',
-      'setArticles'
+      'setArticles',
+      'setCategoriesDefault'
     ]),
 
     showInfo() {
@@ -55,11 +53,15 @@ export default {
     }
   },
 
-  mounted() {
-    setTimeout(() => {
-      this.setArticles(articles);
-      this.setLoading(false);
-    }, 1000);
+  async beforeCreate() {
+    await initDb();
+    const categoriesDefault = await readDb();
+
+    console.log('categoriesDef', categoriesDefault);
+
+    this.setArticles(articles);
+    this.setCategoriesDefault(categoriesDefault);
+    this.setLoading(false);
   }
 }
 </script>

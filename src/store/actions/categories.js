@@ -1,6 +1,6 @@
 const Categories = {
-    addCategory({commit}, category = {}) {
-        commit('addCategory', category);
+    addCategory({commit}) {
+        commit('addCategory');
     },
 
     editCategory({commit}, options = {}) {
@@ -13,6 +13,10 @@ const Categories = {
 
     setFilterArticles({commit}, str) {
         commit('setFilterArticles', str);
+    },
+
+    setCategoriesDefault({commit}, categories) {
+        commit('setCategoriesDefault', categories);
     }
 }
 

@@ -1,3 +1,5 @@
+import {saveStore} from '@/DataBase';
+
 function reload(state) {
     state.isLoading = true;
 
@@ -6,26 +8,82 @@ function reload(state) {
     }, 600);
 }
 
+function addCategory(category, newCategory) {
+    if(category.id === newCategory.parent) {
+        if(!category.subCategories) category.subCategories = [];
+
+        category.subCategories.push(newCategory);
+
+    } else {
+        if(category.subCategories) {
+            for(let subCategories of category.subCategories) {
+                addCategory(subCategories, newCategory);
+            }
+        }
+    }
+}
+
 const Categories = {
-    addCategory(state, category) {
-        category.id = new Date().getTime();
-        state.categories.push(category);
+    addCategory(state) {
+        const newCategory = {
+            id: new Date().getTime(),
+            name: state.modalDefault.category.name,
+            articles: state.modalDefault.articleSelected.slice(),
+            parent: state.modalDefault.category.parent || null
+        };
+
+        if(!newCategory.parent) {
+            state.categories.unshift(newCategory);
+
+        } else {
+            for(let category of state.categories) {
+                addCategory(category, newCategory);
+            }
+        }
+
+        state.modalDefault = null;
+        reload(state);
+        saveStore(state.categories);
     },
 
-    editCategory(state, options) {
-        state.categories[options.index] = options.category;
+    editCategory(state) {
+        const newCategory = {
+            name: state.modalDefault.category.name,
+            articles: state.modalDefault.articleSelected.slice(),
+            parent: state.modalDefault.category.parent || null
+        };
+        const index = state.modalDefault.category.index;
+
+        if(
+            !newCategory.parent ||
+            state.categories[index].id === newCategory.parent
+        ) {
+            state.categories[index] = Object.assign({}, newCategory);
+
+        } else {
+            state.categories.splice(index, 1);
+
+            for(let category of state.categories) {
+                addCategory(category, newCategory);
+            }
+        }
+
+        state.modalDefault = null;
         reload(state);
+        saveStore(state.categories);
     },
 
     removeCategory(state, index) {
-        console.log('removeCategory', index);
-
         state.categories.splice(index, 1);
         reload(state);
     },
 
     setFilterArticles(state, str) {
         state.filterArticles = str;
+    },
+
+    setCategoriesDefault(state, categories) {
+        state.categories = categories;
     }
 }
 

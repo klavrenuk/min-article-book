@@ -4,6 +4,9 @@
 @import "modal";
 @import "form";
 @import "containers";
+@import "select";
+
+@scrollRadius: 27px;
 
 body {
   margin: 0;
@@ -45,4 +48,21 @@ p {
     opacity: 1;
     transition: opacity .3s linear;
   }
+}
+
+&::-webkit-scrollbar {
+  width: 8px;
+}
+
+&::-webkit-scrollbar-track {
+  border-radius: @scrollRadius;
+  background-color: #E9E9E9;
+}
+
+&::-webkit-scrollbar-thumb {
+  min-height: 30px;
+  height: 30px;
+  max-height: 30px;
+  border-radius: @scrollRadius;
+  background: #D2D2D2;
 }

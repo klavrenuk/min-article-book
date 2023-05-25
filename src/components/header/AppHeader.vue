@@ -3,7 +3,7 @@
         <div class="app_header-container">
             <div class="app_header-left">
                 <ButtonPrimary class="app_header-left-btn"
-                               :onClick="showModalCategory"
+                               :onClick="onCreateCategory"
                 >
                     <slot>Создать категорию</slot>
                 </ButtonPrimary>
@@ -19,6 +19,7 @@
 <script>
     import SearchCategories from "@/components/search/SearchCategories";
     import ButtonPrimary from "@/components/buttons/ButtonPrimary";
+    import CategoryModalBody from "@/components/category/CategoryModalBody";
     import {mapActions} from "vuex";
 
     export default {
@@ -29,8 +30,17 @@
         },
         methods: {
             ...mapActions([
-                'showModalCategory'
-            ])
+                'showModalDefault',
+                'addCategory'
+            ]),
+
+            onCreateCategory() {
+                this.showModalDefault({
+                    title: 'Новая категория',
+                    save: this.addCategory,
+                    content: CategoryModalBody
+                });
+            }
         }
     }
 </script>

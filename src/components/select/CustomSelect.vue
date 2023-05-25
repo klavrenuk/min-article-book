@@ -1,17 +1,19 @@
 <template>
-    <div class="custom_select">
+    <div class="custom_select" v-click-outside="onClickOutside">
         <button class="custom_select-button_top btn btn-empty"
                 type="button"
                 @click="toggleView"
         >
-            <label class="button_top-label" v-if="selectedItem">Label</label>
+            <label class="button_top-label"
+                   v-if="selectedItem && !settings.isHideLabel"
+            >Label</label>
 
             <RowSelectedItems v-if="type === 'multi'"
                               :list="selectedList"
             />
 
             <span class="button_top-text" v-if="type === 'default'">
-                {{ selectedItem ? selectedItem : settings.label }}
+                {{ selectedItem && !settings.isShowOnlyLabel ? selectedItem : settings.label }}
             </span>
             <i class="button_top-icon" />
         </button>
@@ -76,6 +78,10 @@
         },
 
         methods: {
+            onClickOutside() {
+                this.isShowOptions = false;
+            },
+
             toggleView() {
                 this.isShowOptions = !this.isShowOptions;
             },
@@ -131,9 +137,6 @@
     @paddingSide: 1rem;
 
     .custom_select {
-        position: relative;
-        width: 100%;
-
         &-button_top {
             position: relative;
             width: 100%;
@@ -164,36 +167,6 @@
                 width: 24px;
                 height: 24px;
                 background: url('/public/images/select-arrow.svg') center center no-repeat;
-            }
-        }
-
-        &-list {
-            position: absolute;
-            top: 101%;
-            left: 0;
-            width: 100%;
-            height: 126px;
-            overflow-y: auto;
-            padding: 8px 9px;
-            border-radius: 5px;
-            z-index: 8;
-            box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.07);
-            background: #fff;
-
-            &-item {
-                &-btn {
-                    width: 100%;
-                    padding: 6px 8px;
-                    color: #4D5163;
-                    font-size: 14px;
-                    line-height: 22px;
-                    text-align: left;
-                    cursor: pointer;
-
-                    &:hover, &:active, &.active {
-                        background: rgba(48, 52, 70, 0.03);
-                    }
-                }
             }
         }
     }

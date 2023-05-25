@@ -4,7 +4,7 @@
               v-for="item in list"
               :key="item.id"
         >
-            {{ item.title }} <span class="item-line">|</span>
+            {{ item.name }} <span class="item-line">|</span>
         </span>
     </div>
 </template>
