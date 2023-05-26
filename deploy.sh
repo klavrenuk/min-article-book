@@ -11,6 +11,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:klavrenuk/min-article-book.git main:gh-pages
+git push -f git@github.com:klavrenuk/min-article-book.git master:gh-pages
 
 cd -
