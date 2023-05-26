@@ -125,6 +125,8 @@
 
             getCategory(category) {
                 if(category.subCategories) {
+                    if(this.category.id !== category.id) this.parentCategories.push(category);
+
                     for(let subCategories of category.subCategories) {
                         this.getCategory(subCategories, category);
                     }
@@ -136,22 +138,13 @@
             setParentCategories() {
                 this.parentCategories = [];
 
-                console.log('thi', this.modalDefault);
-
                 for(let category of this.$store.state.categories) {
-                    if(!this.modalDefault.category || !this.modalDefault.category.id) {
-                        this.getCategory(category);
-                    } else {
-                        this.parentCategories.push(category);
-                    }
+                    this.getCategory(category);
                 }
-
             }
         },
 
         mounted() {
-            console.log(this.modalDefault);
-
             if(this.modalDefault.category && this.modalDefault.category.id) {
                 this.category = {
                     ...this.modalDefault.category,
