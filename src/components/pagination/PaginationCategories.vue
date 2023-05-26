@@ -122,14 +122,14 @@
         &-btn_arrow {
             width: 5px;
             height: 9px;
-            background: url('/public/images/pagination-arrow.svg') center center no-repeat;
+            background: url('/public/images1/pagination-arrow.svg') center center no-repeat;
 
             &:hover, &:active {
-                background: url('/public/images/pagination-arrow-effect.svg') center center no-repeat;
+                background: url('/public/images1/pagination-arrow-effect.svg') center center no-repeat;
             }
 
             &:focus {
-                background: url('/public/images/pagination-arrow.svg') center center no-repeat;
+                background: url('/public/images1/pagination-arrow.svg') center center no-repeat;
             }
 
             &--right {

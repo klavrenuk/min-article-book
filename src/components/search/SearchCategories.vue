@@ -69,10 +69,10 @@
             top: @positionButtonTop;
             right: 45px;
             z-index: 2;
-            background-image: url('/public/images/icon-search-clear.svg') !important;
+            background-image: url('/public/images1/icon-search-clear.svg') !important;
 
             &:hover, &:active {
-                background-image: url('/public/images/icon-search-clear-effect.svg') !important;
+                background-image: url('/public/images1/icon-search-clear-effect.svg') !important;
             }
         }
 
@@ -81,10 +81,10 @@
             top: @positionButtonTop;
             right: 20px;
             z-index: 2;
-            background-image: url('/public/images/magnifier.svg') !important;
+            background-image: url('/public/images1/magnifier.svg') !important;
 
             &:hover, &:active {
-                background-image: url('/public/images/magnifier-effect.svg') !important;
+                background-image: url('/public/images1/magnifier-effect.svg') !important;
             }
         }
     }

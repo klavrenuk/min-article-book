@@ -154,7 +154,7 @@
                 right: 11px;
                 width: 24px;
                 height: 24px;
-                background: url('/public/images/select-arrow.svg') center center no-repeat;
+                background: url('/public/images1/select-arrow.svg') center center no-repeat;
             }
         }
     }

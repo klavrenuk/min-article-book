@@ -24,7 +24,7 @@
         &-icon {
             height: 48px;
             width: 48px;
-            background: url('/public/images/loader.svg') center center no-repeat;
+            background: url('/public/images1/loader.svg') center center no-repeat;
             animation-name: rotation;
             animation-duration: 2s;
             animation-iteration-count: infinite;

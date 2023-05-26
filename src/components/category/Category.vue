@@ -174,14 +174,14 @@
                 & .btn_toggle_view {
                     width: 14px;
                     height: 24px;
-                    background: url('/public/images/icon-toggle-articles.svg') center center no-repeat;
+                    background: url('/public/images1/icon-toggle-articles.svg') center center no-repeat;
 
                     &.close {
                         transform: rotate(180deg);
                     }
 
                     &:hover, &:active {
-                        background: url('/public/images/icon-toggle-articles-effect.svg') center center no-repeat;
+                        background: url('/public/images1/icon-toggle-articles-effect.svg') center center no-repeat;
                     }
                 }
 
@@ -189,10 +189,10 @@
                     height: 24px;
                     width: 24px;
                     margin-left: 26px;
-                    background: url('/public/images/icon-options.svg') center center no-repeat;
+                    background: url('/public/images1/icon-options.svg') center center no-repeat;
 
                     &:hover, &:active {
-                        background: url('/public/images/icon-options-effect.svg') center center no-repeat;
+                        background: url('/public/images1/icon-options-effect.svg') center center no-repeat;
                     }
                 }
             }

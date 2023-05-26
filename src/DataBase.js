@@ -47,27 +47,32 @@ export const clearDb = () => {
 
 export const readDb = () => {
     return new Promise((resolve, reject) => {
-        const objectStore = db.transaction([storeName])
-            .objectStore(storeName);
+        try {
+            const objectStore = db.transaction([storeName])
+                .objectStore(storeName);
 
-        if(objectStore) {
-            objectStore.openCursor().onsuccess = function(event) {
-                const cursor = event.target.result;
-                if(cursor) {
-                    if(Array.isArray(cursor.value.categories)) {
-                        resolve(cursor.value.categories);
+            if(objectStore) {
+                objectStore.openCursor().onsuccess = function(event) {
+                    const cursor = event.target.result;
+                    if(cursor) {
+                        if(Array.isArray(cursor.value.categories)) {
+                            resolve(cursor.value.categories);
+                        } else {
+                            resolve([]);
+                        }
+
                     } else {
                         resolve([]);
                     }
+                }
 
-                } else {
-                    resolve([]);
+                objectStore.openCursor().onerror = function() {
+                    reject(null);
                 }
             }
 
-            objectStore.openCursor().onerror = function() {
-                reject(null);
-            }
+        } catch(err) {
+            resolve([]);
         }
     })
 }

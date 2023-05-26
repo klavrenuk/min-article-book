@@ -74,10 +74,10 @@
             justify-content: space-between;
 
             &-edit {
-                background-image: url('/public/images/pen.svg');
+                background-image: url('/public/images1/pen.svg');
 
                 &:hover, &:active {
-                    background-image: url('/public/images/pen-effect.svg');
+                    background-image: url('/public/images1/pen-effect.svg');
                 }
             }
         }
