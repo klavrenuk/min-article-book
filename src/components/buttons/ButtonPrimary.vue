@@ -28,7 +28,7 @@
 
 <style lang="less" scoped>
     .btn-primary {
-        padding: 11px 21px;
+        padding: 11px 21px 11px 1rem;
 
         &-container {
             display: flex;
@@ -37,7 +37,7 @@
         }
 
         &-plus {
-
+            margin-left: 13px;
         }
     }
 </style>

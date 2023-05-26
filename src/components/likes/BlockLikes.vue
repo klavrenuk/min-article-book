@@ -40,6 +40,9 @@
 
 <style lang="less" scoped>
     .likes {
+        padding-left: 6px;
+        box-sizing: border-box;
+
         &-container {
             display: flex;
             align-items: center;

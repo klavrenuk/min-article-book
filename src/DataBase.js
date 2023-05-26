@@ -49,8 +49,6 @@ export const clearDb = () => {
 
 export const readDb = () => {
     return new Promise((resolve, reject) => {
-        console.log('function read');
-
         const objectStore = db.transaction([storeName])
             .objectStore(storeName);
 

@@ -67,7 +67,10 @@ export default {
     this.setArticles(articles);
       // this.setCategoriesDefault(categoriesDefault);
     console.log(categoriesDefault);
-    this.setLoading(false);
+
+    setTimeout(() => {
+      this.setLoading(false)
+    }, 600)
   }
 }
 </script>
@@ -76,6 +79,6 @@ export default {
   @import './assets/styles.min.css';
 
   .app {
-    padding-bottom: 112px;
+    padding-bottom: 106px;
   }
 </style>

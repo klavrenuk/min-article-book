@@ -99,6 +99,7 @@
             color: #303446;
             font-size: 16px;
             line-height: 24px;
+            font-weight: 600;
         }
 
         &-text {

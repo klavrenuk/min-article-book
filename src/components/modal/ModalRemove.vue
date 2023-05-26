@@ -80,7 +80,7 @@
             text-align: center;
 
             &-title {
-                margin: 4px 0 0;
+                margin: 0 0 4px;
                 color: #303446;
                 font-size: 16px;
                 line-height: 24px;
@@ -88,6 +88,7 @@
 
             &-text {
                 color: #6A6E7E;
+                font-size: 14px;
             }
         }
 
@@ -95,6 +96,10 @@
             display: flex;
             justify-content: center;
             gap: 8px;
+
+            & .btn {
+                padding: 13px 28px !important;
+            }
         }
     }
 </style>
