@@ -122,13 +122,21 @@
                 });
             },
 
-            setParentCategories() {
-                if(!this.category.id) {
-                    this.parentCategories = this.$store.state.categories.slice();
+            getCategory(category) {
+                if(category.subCategories) {
+                    for(let subCategories of category.subCategories) {
+                        this.getCategory(subCategories, category);
+                    }
                 } else {
-                    this.parentCategories = this.$store.state.categories.filter((category) => {
-                        return this.category.id !== category.id
-                    })
+                    if(this.category.id !== category.id) this.parentCategories.push(category);
+                }
+            },
+
+            setParentCategories() {
+                this.parentCategories = [];
+
+                for(let category of this.$store.state.categories) {
+                    this.getCategory(category);
                 }
             }
         },

@@ -7,8 +7,8 @@ const Categories = {
         commit('editCategory', options);
     },
 
-    removeCategory({commit}, index) {
-        commit('removeCategory', index);
+    removeCategory({commit}, category) {
+        commit('removeCategory', category);
     },
 
     setFilterArticles({commit}, str) {

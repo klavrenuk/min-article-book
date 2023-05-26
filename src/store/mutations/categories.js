@@ -25,6 +25,26 @@ function addCategory(category, newCategory) {
     }
 }
 
+function removeCategory(category, itemRemove) {
+    if(category.subCategories) {
+        let index = 0;
+
+        for(let subCategories of category.subCategories) {
+            if(subCategories.id === itemRemove.id) {
+                break
+            } else {
+                if(subCategories.subCategories) {
+                    addCategory(subCategories, itemRemove);
+                }
+            }
+
+            index++;
+        }
+
+        category.subCategories.splice(index, 1);
+    }
+}
+
 const Categories = {
     addCategory(state) {
         const newCategory = {
@@ -75,9 +95,13 @@ const Categories = {
         saveStore(state.categories);
     },
 
-    removeCategory(state, index) {
-        state.categories.splice(index, 1);
+    removeCategory(state, item) {
+        for(let category of state.categories) {
+            removeCategory(category, item.category);
+        }
+
         reload(state);
+        saveStore(state.categories);
     },
 
     setFilterArticles(state, str) {

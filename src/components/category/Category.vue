@@ -26,27 +26,27 @@
             </div>
         </div>
 
-        <ul class="category-list"
-            v-if="isShowArticles"
-        >
-            <li class="category-list-item"
-                v-for="article in category.articles"
-                :key="article.id"
-            >
-                <CategoryArticleCard :article="article" />
-            </li>
-        </ul>
-
-        <div class="category-subcategories">
-            <ul class="subcategories-list">
-                <li v-for="subCategory of category.subCategories"
-                    :key="subCategory.id"
+        <div v-if="isShowArticles">
+            <ul class="category-list">
+                <li class="category-list-item"
+                    v-for="article in category.articles"
+                    :key="article.id"
                 >
-                    <CardCategory :category="subCategory"
-                                  :isShowDefaultArticles="false"
-                    />
+                    <CategoryArticleCard :article="article" />
                 </li>
             </ul>
+
+            <div class="category-subcategories">
+                <ul class="subcategories-list">
+                    <li v-for="subCategory of category.subCategories"
+                        :key="subCategory.id"
+                    >
+                        <CardCategory :category="subCategory"
+                                      :isShowDefaultArticles="false"
+                        />
+                    </li>
+                </ul>
+            </div>
         </div>
     </section>
 </template>
@@ -112,7 +112,7 @@
 
                 switch (key) {
                     case 'remove':
-                        this.showModalRemove({index: this.index});
+                        this.showModalRemove({index: this.index, category: this.category});
                         break;
 
                     case 'edit':
@@ -132,6 +132,8 @@
 
 <style lang="less" scoped>
     .category {
+        border: 1px solid green;
+
         &-header {
             display: flex;
             align-items: center;
