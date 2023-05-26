@@ -74,12 +74,19 @@ const Categories = {
             articles: state.modalDefault.articleSelected.slice(),
         };
 
-        for(let category of state.categories) {
-            removeCategory(category, newCategory);
-        }
+        if(state.modalDefault.categoryIndex >= 0) {
+            state.categories[state.modalDefault.categoryIndex] = {
+                ...newCategory
+            }
 
-        for(let category of state.categories) {
-            addCategory(category, newCategory);
+        } else {
+            for(let category of state.categories) {
+                removeCategory(category, newCategory);
+            }
+
+            for(let category of state.categories) {
+                addCategory(category, newCategory);
+            }
         }
 
         state.modalDefault = null;
