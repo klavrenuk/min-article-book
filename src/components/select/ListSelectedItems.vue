@@ -9,7 +9,7 @@
                     type="button"
             >
                 <div class="selected_item-remove-container">
-                    <img src="/images/icon-trash.svg"
+                    <img src="/images1/icon-trash.svg"
                          alt="Иконка удаления"
                     />
                 </div>

@@ -6,7 +6,7 @@
             <span class="btn-primary-text">
             <slot></slot>
         </span>
-            <img src="/images/plus.svg"
+            <img src="/images1/plus.svg"
                  alt="Plus"
                  class="btn-primary-plus"
             />

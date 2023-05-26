@@ -4,7 +4,7 @@
              v-click-outside="onClickOutside"
         >
             <div class="modal_remove-header">
-                <img src="/images/icon-question.svg"
+                <img src="/images1/icon-question.svg"
                      alt="Вопрос"
                 />
             </div>

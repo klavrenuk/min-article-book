@@ -4,7 +4,7 @@
             <button class="likes-container-btn btn btn-icon"
                     @click="increase()"
             >
-                <img src="/images/like.svg"
+                <img src="/images1/like.svg"
                      alt="Иконка лайка"
                 />
                 <span class="count">{{ count }}</span>
