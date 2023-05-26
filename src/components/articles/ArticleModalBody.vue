@@ -105,7 +105,7 @@
                 if(!this.nameNewCategory || !this.nameNewCategory.trim()) return false;
 
                 this.selectedCategories.push({
-                    id: new Date().getTime(),
+                    id: null,
                     name: this.nameNewCategory.trim()
                 });
                 this.isShowNewCategory = false;

@@ -1,10 +1,12 @@
 import {saveStore} from '@/DataBase';
+import {toggleFixedClass} from '@/middleware/toggleClasses';
 
 function reload(state) {
     state.isLoading = true;
 
     setTimeout(() => {
         state.isLoading = false;
+        toggleFixedClass();
     }, 600);
 }
 

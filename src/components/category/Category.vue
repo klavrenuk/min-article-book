@@ -145,8 +145,7 @@
                 }
             }
 
-            &-title {
-                width: 80%;
+            & .category-title {
                 margin: 0 0 1rem;
                 color: #303446;
                 font-size: 24px;
@@ -197,6 +196,14 @@
             display: flex;
             flex-wrap: wrap;
             gap: 24px;
+        }
+
+        & .subcategories-list {
+            padding-top: 1rem;
+
+            & .category-title {
+                color: #4D5163;
+            }
         }
     }
 </style>

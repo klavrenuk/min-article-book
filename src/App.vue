@@ -65,7 +65,7 @@ export default {
     const categoriesDefault = await readDb();
 
     this.setArticles(articles);
-      // this.setCategoriesDefault(categoriesDefault);
+    this.setCategoriesDefault(categoriesDefault);
     console.log(categoriesDefault);
 
     setTimeout(() => {

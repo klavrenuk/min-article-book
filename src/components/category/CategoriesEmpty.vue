@@ -3,7 +3,7 @@
         <h5 class="category_empty-title title">
             Пока нет статей
         </h5>
-        <p class="category_empty-description">Создайте свою первую  категорию и добавьте в неё статьи.</p>
+        <p class="category_empty-description">Создайте свою первую категорию<br /> и добавьте в неё статьи.</p>
         <ButtonPrimary class="app_header-left-btn"
                        :onClick="onCreateCategory"
         >

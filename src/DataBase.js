@@ -56,7 +56,6 @@ export const readDb = () => {
             objectStore.openCursor().onsuccess = function(event) {
                 const cursor = event.target.result;
                 if(cursor) {
-                    console.log('cursor', cursor.value);
                     if(Array.isArray(cursor.value.categories)) {
                         resolve(cursor.value.categories);
                     } else {

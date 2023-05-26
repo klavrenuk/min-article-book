@@ -1,13 +1,4 @@
-function toggleFixedClass(isAdd = false) {
-    const body = document.getElementById('body');
-    if(body) {
-        if(isAdd) {
-            body.classList.add('fixed');
-        } else {
-            body.classList.remove('fixed');
-        }
-    }
-}
+import {toggleFixedClass} from '@/middleware/toggleClasses';
 
 const Modal = {
     showModalDefault(state, options) {
