@@ -43,6 +43,7 @@
                     >
                         <CardCategory :category="subCategory"
                                       :isShowDefaultArticles="false"
+                                      :parent="category"
                         />
                     </li>
                 </ul>
@@ -78,6 +79,10 @@
                 type: Boolean,
                 required: false,
                 default: true
+            },
+            parent: {
+                type: Object,
+                required: false
             }
         },
 
@@ -116,12 +121,16 @@
                         break;
 
                     case 'edit':
+                        console.log('edit');
+                        console.log('this.category', this.category);
+
                         this.showModalDefault({
                             categoryIndex: this.index,
                             category: this.category,
                             title: 'Редактирование категории',
                             save: this.editCategory,
-                            content: CategoryModalBody
+                            content: CategoryModalBody,
+                            parent: this.parent
                         })
                         break;
                 }

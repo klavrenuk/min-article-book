@@ -29,12 +29,12 @@ function removeCategory(category, itemRemove) {
     if(category.subCategories) {
         let index = 0;
 
-        for(let subCategories of category.subCategories) {
-            if(subCategories.id === itemRemove.id) {
+        for(let subCategory of category.subCategories) {
+            if(subCategory.id === itemRemove.id) {
                 break
             } else {
-                if(subCategories.subCategories) {
-                    addCategory(subCategories, itemRemove);
+                if(subCategory.subCategories) {
+                    removeCategory(subCategory, itemRemove);
                 }
             }
 
@@ -70,24 +70,16 @@ const Categories = {
 
     editCategory(state) {
         const newCategory = {
-            name: state.modalDefault.category.name,
+            ...state.modalDefault.category,
             articles: state.modalDefault.articleSelected.slice(),
-            parent: state.modalDefault.category.parent || null
         };
-        const index = state.modalDefault.category.index;
 
-        if(
-            !newCategory.parent ||
-            state.categories[index].id === newCategory.parent
-        ) {
-            state.categories[index] = Object.assign({}, newCategory);
+        for(let category of state.categories) {
+            removeCategory(category, newCategory);
+        }
 
-        } else {
-            state.categories.splice(index, 1);
-
-            for(let category of state.categories) {
-                addCategory(category, newCategory);
-            }
+        for(let category of state.categories) {
+            addCategory(category, newCategory);
         }
 
         state.modalDefault = null;

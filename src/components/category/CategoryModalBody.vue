@@ -54,7 +54,8 @@
                 },
                 settingsParentCategory: {
                     label: 'Родительская категория (необязательно)',
-                    key: 'parent'
+                    key: 'parent',
+                    selectedItem: null
                 },
                 articlesFree: [],
                 parentCategories: []
@@ -135,19 +136,32 @@
             setParentCategories() {
                 this.parentCategories = [];
 
+                console.log('thi', this.modalDefault);
+
                 for(let category of this.$store.state.categories) {
-                    this.getCategory(category);
+                    if(!this.modalDefault.category || !this.modalDefault.category.id) {
+                        this.getCategory(category);
+                    } else {
+                        this.parentCategories.push(category);
+                    }
                 }
+
             }
         },
 
         mounted() {
+            console.log(this.modalDefault);
+
             if(this.modalDefault.category && this.modalDefault.category.id) {
                 this.category = {
                     ...this.modalDefault.category,
                     index: this.modalDefault.categoryIndex
                 };
                 this.selectedArticles = this.modalDefault.category.articles.slice();
+
+                if(this.modalDefault.parent) {
+                    this.settingsParentCategory.selectedItem = this.modalDefault.parent.name;
+                }
             }
 
             this.setArticleFree();

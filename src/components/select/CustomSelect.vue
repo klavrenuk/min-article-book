@@ -6,7 +6,7 @@
                 v-on:keyup.esc="onEsc()"
         >
             <label class="button_top-label"
-                   :class="{'active': selectedItem}"
+                   :class="{'active': selectedItem }"
                    v-if="!settings.isHideLabel"
             >{{ settings.label }}</label>
 
@@ -107,6 +107,10 @@
                 this.selectedListIds = this.selectedDefault.map((item) => {
                     return item.id;
                 });
+            }
+
+            if(this.settings && this.settings.selectedItem) {
+                this.selectedItem = this.settings.selectedItem;
             }
         }
     }
