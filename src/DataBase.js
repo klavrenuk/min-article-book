@@ -17,7 +17,6 @@ export const initDb = () => {
 
         request.onsuccess = function() {
             db = request.result;
-            console.log('success', db);
             resolve();
         };
 
@@ -36,12 +35,11 @@ export const clearDb = () => {
             .clear()
 
         request.onsuccess = function() {
-            console.log('success clear');
             resolve(true)
         }
         request.onerror = function(err) {
-            console.log("error with clear", err);
-            reject();
+            console.error(err);
+            reject(err);
         }
     })
 
@@ -67,8 +65,7 @@ export const readDb = () => {
                 }
             }
 
-            objectStore.openCursor().onerror = function (event) {
-                console.log(event.target);
+            objectStore.openCursor().onerror = function() {
                 reject(null);
             }
         }
@@ -77,10 +74,6 @@ export const readDb = () => {
 
 const save = (categories) => {
     return new Promise((resolve, reject) => {
-        console.log('save');
-
-        console.log('db', db);
-
         const request = db.transaction([storeName], "readwrite")
             .objectStore(storeName).add({
                 id: 1,
@@ -88,7 +81,6 @@ const save = (categories) => {
             })
 
         request.onsuccess = function() {
-            console.log('success');
             resolve(true);
         }
         request.onerror = function(err) {
@@ -99,8 +91,6 @@ const save = (categories) => {
 }
 
 export const saveStore = async(categories) => {
-    console.log('start');
     await clearDb();
     await save(categories);
-    console.log('finish');
 }

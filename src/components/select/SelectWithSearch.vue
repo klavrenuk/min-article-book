@@ -96,8 +96,6 @@
             },
 
             filterOptions(str) {
-                console.log('options', this.options);
-
                 if(str) {
                     this.filteredOptions = this.options.filter((option) => {
                         if(option.name.toLowerCase().search(str.toLowerCase()) > -1) {

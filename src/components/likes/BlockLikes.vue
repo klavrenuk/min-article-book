@@ -52,6 +52,8 @@
                 align-items: center;
 
                 & .count {
+                    position: relative;
+                    top: 1px;
                     margin-left: 6px;
                     color: #A0A6BF;
                     font-size: 12px;

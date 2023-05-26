@@ -49,6 +49,8 @@
         watch: {
             '$store.state.filterArticles': function(value) {
                 this.filterCategories(value);
+                this.start = 0;
+                this.end = 3;
             }
         },
 
@@ -69,15 +71,25 @@
 
             searchInSubCategory(category, searchTitle) {
                 if(category.subCategories) {
-                    for(let subCategory of category.subCategories) {
-                        const isHas = this.searchInCategory(subCategory, searchTitle)
+                    category.subCategories = category.subCategories.filter((subCategory) => {
+                        if(subCategory.subCategories) {
+                            if(this.searchInSubCategory(subCategory, searchTitle)) return subCategory;
 
-                        if(!subCategory.subCategories) {
-                            if(isHas) return subCategory;
                         } else {
-                            return this.searchInSubCategory(subCategory, searchTitle);
+                            if(this.searchInCategory(subCategory, searchTitle)) return subCategory;
                         }
-                    }
+                    })
+                }
+
+                if(
+                    !this.searchInCategory(category, searchTitle) &&
+                    (Array.isArray(category.subCategories) &&
+                    !category.subCategories[0])
+                ) {
+                    return false;
+
+                } else {
+                    return true;
                 }
             },
 
@@ -85,7 +97,7 @@
                 this.isShowPagination = false;
                 const arrCopy = JSON.parse(JSON.stringify(this.$store.state.categories));
 
-                if(searchTitle === '') {
+                if(!searchTitle) {
                     this.categories = arrCopy.slice();
 
                 } else {
@@ -96,7 +108,9 @@
                             if(isHas) return category;
 
                         } else {
-                            return this.searchInSubCategory(category, searchTitle);
+                            if(this.searchInSubCategory(category, searchTitle)) {
+                                return category;
+                            }
                         }
                     });
                 }

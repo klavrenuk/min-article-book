@@ -138,8 +138,6 @@
 
 <style lang="less" scoped>
     .category {
-        border: 1px solid green;
-
         &-header {
             display: flex;
             align-items: center;

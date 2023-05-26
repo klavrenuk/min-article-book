@@ -52,7 +52,6 @@ const Categories = {
 
         const validation = isValidCategory(newCategory);
         if(!validation.value) {
-            console.log('invalid Category', newCategory);
             state.isValidModalItem = [...validation.options];
             return;
 

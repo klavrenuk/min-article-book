@@ -66,7 +66,6 @@ export default {
 
     this.setArticles(articles);
     this.setCategoriesDefault(categoriesDefault);
-    console.log(categoriesDefault);
 
     setTimeout(() => {
       this.setLoading(false)
