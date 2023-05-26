@@ -15,6 +15,7 @@
 <script>
     import ButtonPrimary from "@/components/buttons/ButtonPrimary";
     import {mapActions} from 'vuex';
+    import CategoryModalBody from "@/components/category/CategoryModalBody";
 
     export default {
         name: "CategoriesEmpty",
@@ -23,11 +24,16 @@
         },
         methods: {
             ...mapActions([
-
+                'showModalDefault',
+                'addCategory'
             ]),
 
             onCreateCategory() {
-                alert('xxx');
+                this.showModalDefault({
+                    title: 'Новая категория',
+                    save: this.addCategory,
+                    content: CategoryModalBody
+                });
             }
         }
     }

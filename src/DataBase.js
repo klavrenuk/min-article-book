@@ -61,6 +61,8 @@ export const readDb = () => {
                     console.log('cursor', cursor.value);
                     if(Array.isArray(cursor.value.categories)) {
                         resolve(cursor.value.categories);
+                    } else {
+                        resolve([]);
                     }
 
                 } else {

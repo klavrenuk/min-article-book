@@ -10,9 +10,9 @@
         >
             <div class="new_category-container">
                 <div class="new_category-container-wrap_input">
-                    <input class="input"
-                           placeholder="Название новой категории"
-                           v-model="nameNewCategory"
+                    <CustomInput
+                            label="Название новой категории"
+                            :onChange="onChangeName"
                     />
                 </div>
 
@@ -34,6 +34,7 @@
 <script>
     import CustomSelect from '@/components/select/CustomSelect';
     import ListSelectedItems from "@/components/select/ListSelectedItems";
+    import CustomInput from "@/components/form/CustomInput";
 
     import { mapGetters, mapActions } from 'vuex'
 
@@ -41,6 +42,7 @@
         name: "ArticleModalBody",
 
         components: {
+            CustomInput,
             CustomSelect,
             ListSelectedItems
         },
@@ -147,6 +149,10 @@
                     articleId: this.data.articleId,
                     selectedCategories: this.selectedCategories
                 });
+            },
+
+            onChangeName(name) {
+                this.nameNewCategory = name;
             }
         },
 

@@ -16,6 +16,8 @@
 </template>
 
 <script>
+    import {addEvent} from '@/middleware/events';
+
     export default {
         name: "ListOptions",
 
@@ -40,6 +42,10 @@
                     this.toggleViewOptions();
                 }
             }
+        },
+
+        mounted() {
+            addEvent(this.toggleViewOptions);
         }
     }
 </script>

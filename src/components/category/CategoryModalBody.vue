@@ -2,9 +2,9 @@
     <div class="category_modal_body">
         <form v-if="isShowForm">
             <div class="form-group">
-                <input class="input"
-                       placeholder="Название"
-                       v-model="category.name"
+                <CustomInput label="Название"
+                             :onChange="onChangeName"
+                             :defaultValue="category.name"
                 />
             </div>
             <div class="form-group">
@@ -31,6 +31,7 @@
     import SelectWithSearch from "@/components/select/SelectWithSearch";
     import ListSelectedItems from "@/components/select/ListSelectedItems";
     import CustomSelect from "@/components/select/CustomSelect";
+    import CustomInput from "@/components/form/CustomInput";
 
     export default {
         name: "CategoryModalBody",
@@ -38,7 +39,8 @@
         components: {
             CustomSelect,
             SelectWithSearch,
-            ListSelectedItems
+            ListSelectedItems,
+            CustomInput
         },
 
         data() {
@@ -71,6 +73,10 @@
                 'editCategory',
                 'setModalState'
             ]),
+
+            onChangeName(name) {
+                this.category.name = name;
+            },
 
             onSelected(key, value) {
                 switch(key) {
@@ -110,8 +116,6 @@
             },
 
             updateStore() {
-                console.log('update store');
-
                 this.setModalState({
                     articleSelected: this.selectedArticles,
                     category: this.category

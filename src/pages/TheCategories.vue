@@ -1,16 +1,21 @@
 <template>
     <div class="categories">
-        <AppHeader />
+        <HeaderPageCategories />
 
         <div class="categories-content">
             <div v-if="!$store.state.categories[0]">
                 <CategoriesEmpty />
             </div>
             <div v-else>
-                <Category v-for="(category,index) in categories"
+                <Category v-for="(category,index) in categories.slice(start, end)"
                           :key="category.id"
                           :category="category"
                           :index="index"
+                />
+
+                <PaginationCategories :onChange="onChangePagination"
+                                      :countCategories="categories.length"
+                                      v-if="isShowPagination"
                 />
             </div>
         </div>
@@ -18,21 +23,26 @@
 </template>
 
 <script>
-    import AppHeader from '@/components/header/AppHeader';
+    import HeaderPageCategories from '@/components/header/HeaderPageCategories';
     import Category from "@/components/category/Category";
     import CategoriesEmpty from "@/components/category/CategoriesEmpty";
+    import PaginationCategories from "@/components/pagination/PaginationCategories";
 
     export default {
         name: "TheCategories",
         components: {
+            PaginationCategories,
             Category,
             CategoriesEmpty,
-            AppHeader
+            HeaderPageCategories
         },
 
         data() {
             return {
-                categories: []
+                categories: [],
+                start: 0,
+                end: 3,
+                isShowPagination: false
             }
         },
 
@@ -44,6 +54,7 @@
 
         methods: {
             filterCategories(searchTitle) {
+                this.isShowPagination = false;
                 const arrCopy = JSON.parse(JSON.stringify(this.$store.state.categories));
 
                 if(searchTitle === '') {
@@ -60,13 +71,23 @@
                         }
 
                         return category;
-                    })
+                    });
                 }
+
+                setTimeout(() => {
+                    this.isShowPagination = true;
+                }, 0);
+            },
+
+            onChangePagination(start, end) {
+                this.start = start;
+                this.end = end;
             }
         },
 
         mounted() {
             this.categories = this.$store.state.categories;
+            this.isShowPagination = true;
         }
     }
 </script>

@@ -62,9 +62,11 @@
 <style lang="less" scoped>
     .category_article_card {
         width: 291px;
-        padding: 23px 1rem 1rem;
+        height: 295px;
+        padding: 1rem;
         border: 1px solid #BFC3D5;
         border-radius: 10px;
+        box-sizing: border-box;
 
         &-top {
             display: flex;
@@ -93,7 +95,7 @@
         }
 
         &-title {
-            margin: 0 0 .8rem;
+            margin: 0 0 8px;
             color: #303446;
             font-size: 16px;
             line-height: 24px;
@@ -107,7 +109,7 @@
             font-weight: 500;
             text-overflow: ellipsis;
             overflow: hidden;
-            word-break: normal;
+            word-break: break-word;
 
         }
     }

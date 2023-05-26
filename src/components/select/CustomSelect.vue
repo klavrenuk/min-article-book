@@ -3,17 +3,15 @@
         <button class="custom_select-button_top btn btn-empty"
                 type="button"
                 @click="toggleView"
+                v-on:keyup.esc="onEsc()"
         >
             <label class="button_top-label"
-                   v-if="selectedItem && !settings.isHideLabel"
-            >Label</label>
-
-            <RowSelectedItems v-if="type === 'multi'"
-                              :list="selectedList"
-            />
+                   :class="{'active': selectedItem}"
+                   v-if="!settings.isHideLabel"
+            >{{ settings.label }}</label>
 
             <span class="button_top-text" v-if="type === 'default'">
-                {{ selectedItem && !settings.isShowOnlyLabel ? selectedItem : settings.label }}
+                {{ selectedItem && !settings.isShowOnlyLabel ? selectedItem : '' }}
             </span>
             <i class="button_top-icon" />
         </button>
@@ -35,14 +33,8 @@
 </template>
 
 <script>
-    import RowSelectedItems from "@/components/select/RowSelectedItems";
-
     export default {
         name: "CustomSelect",
-
-        components: {
-            RowSelectedItems
-        },
 
         props: {
             settings: {
@@ -78,6 +70,10 @@
         },
 
         methods: {
+            onEsc() {
+                this.isShowOptions = false;
+            },
+
             onClickOutside() {
                 this.isShowOptions = false;
             },
@@ -94,26 +90,12 @@
             onSelect(item) {
                 this.toggleView();
 
-                if(this.type === 'multi') {
-                    const index = this.selectedListIds.indexOf(item.id);
-
-                    if(index > -1) {
-                        this.selectedList.splice(index, 1);
-                        this.selectedListIds.splice(index, 1);
-
-                    } else {
-                        this.selectedList.push(item);
-                        this.selectedListIds.push(item.id);
-                    }
-
-                } else {
-                    this.selectedItem = item.name;
-                }
+                this.selectedItem = item.name;
 
                 if(this.onSelected) {
                     this.onSelected(
                         this.settings.key,
-                        this.type === 'multi' ? this.selectedList : item
+                        item
                     );
                 }
             }
@@ -125,9 +107,6 @@
                 this.selectedListIds = this.selectedDefault.map((item) => {
                     return item.id;
                 });
-
-
-                console.log('selectedListIds', this.selectedListIds);
             }
         }
     }
@@ -142,17 +121,22 @@
             width: 100%;
             height: 46px;
             text-align: left;
-            padding: 0 @paddingSide;
+            padding: 20px @paddingSide 6px !important;
             border-radius: 4px;
             border: 1px solid #BFC3D5;
 
             & .button_top-label {
                 position: absolute;
-                top: 5px;
+                top: 17px;
                 left: @paddingSide;
                 width: 100%;
                 color: #A0A6BF;
-                font-size: 11px;
+                font-size: 14px;
+
+                &.active {
+                    top: 5px;
+                    font-size: 11px;
+                }
             }
 
             & .button_top-text {

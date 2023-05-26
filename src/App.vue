@@ -1,17 +1,23 @@
 <template>
   <div id="app" class="app">
-    <button @click="showInfo()">show info</button>
-
     <LoaderGlobal v-if="$store.state.isLoading" />
+    <div v-else>
+      <button class="app_header-refresh"
+              @click="clearStore"
+      >
+        Сбросить состояния приложения
+      </button>
 
-    <div class="container block_with_effect"
-         :class="!$store.state.isLoading ? 'active' : ''"
-         v-else>
-      <TheCategories />
+      <div class="container block_with_effect"
+           :class="!$store.state.isLoading ? 'active' : ''"
+      >
+        <TheCategories />
 
-      <ModalRemove v-if="isShowModalRemove" />
-      <ModalDefault v-if="isShowModalDefault" />
+        <ModalRemove v-if="isShowModalRemove" />
+        <ModalDefault v-if="isShowModalDefault" />
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -20,9 +26,10 @@ import TheCategories from "@/pages/TheCategories";
 import LoaderGlobal from "@/components/loaders/LoaderGlobal";
 import ModalRemove from "@/components/modal/ModalRemove";
 import ModalDefault from "@/components/modal/ModalDefault";
+
 import {mapActions, mapGetters} from 'vuex';
 import articles from '@/mock/articles.json';
-import {initDb, readDb} from '@/DataBase';
+import {initDb, readDb, clearDb} from '@/DataBase';
 
 export default {
   name: 'App',
@@ -47,9 +54,9 @@ export default {
       'setCategoriesDefault'
     ]),
 
-    showInfo() {
-      console.log('showInfo');
-      console.log(this.$store.state);
+    clearStore() {
+      clearDb();
+      window.location.reload();
     }
   },
 
@@ -57,10 +64,9 @@ export default {
     await initDb();
     const categoriesDefault = await readDb();
 
-    console.log('categoriesDef', categoriesDefault);
-
     this.setArticles(articles);
-    this.setCategoriesDefault(categoriesDefault);
+      // this.setCategoriesDefault(categoriesDefault);
+    console.log(categoriesDefault);
     this.setLoading(false);
   }
 }

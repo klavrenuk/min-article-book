@@ -1,5 +1,5 @@
 const Loading = {
-    setLoading(state, value = {}) {
+    setLoading(state, value = false) {
         state.isLoading = value;
     }
 }

@@ -37,6 +37,7 @@
 
 <script>
     import {mapActions} from 'vuex';
+    import {addEvent} from '@/middleware/events';
 
     export default {
         name: "ModalRemove",
@@ -55,6 +56,10 @@
             onClickOutside() {
                 this.hideModalRemove();
             }
+        },
+
+        mounted() {
+            addEvent(this.hideModalRemove);
         }
     }
 </script>

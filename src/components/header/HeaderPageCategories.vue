@@ -20,10 +20,11 @@
     import SearchCategories from "@/components/search/SearchCategories";
     import ButtonPrimary from "@/components/buttons/ButtonPrimary";
     import CategoryModalBody from "@/components/category/CategoryModalBody";
+
     import {mapActions} from "vuex";
 
     export default {
-        name: "AppHeader",
+        name: "HeaderPageCategories",
         components: {
             SearchCategories,
             ButtonPrimary

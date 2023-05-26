@@ -1,12 +1,18 @@
 <template>
-    <div class="select_with_search custom_select" v-click-outside="onClickOutside">
+    <div class="select_with_search custom_select"
+         v-click-outside="onClickOutside"
+    >
         <div class="select_with_search-header">
-            <label class="select_with_search-header-label">{{ settings.label }}</label>
+            <label class="select_with_search-header-label"
+                   :class="{'active': searchStr || isShowOptions}"
+                   @click="showOptions"
+            >{{ settings.label }}</label>
             <input class="select_with_search-header-input input"
                    v-model.lazy="searchStr"
                    v-debounce="delay"
                    @click="showOptions()"
                    @input="showOptions()"
+                   v-on:keyup.esc="onEsc($event)"
             />
         </div>
         <ul class="select_with_search-list custom_select-list"
@@ -70,6 +76,11 @@
         },
 
         methods: {
+            onEsc(event) {
+                event.target.blur();
+                this.isShowOptions = false;
+            },
+
             onSelectedOption(option) {
                 this.searchStr = null;
                 this.onSelect(this.settings.key, option);
@@ -100,7 +111,6 @@
         },
 
         mounted() {
-            console.log(this.options);
             this.filteredOptions = this.options.slice();
         }
     }
@@ -116,12 +126,18 @@
 
             &-label {
                 position: absolute;
-                top: 5px;
+                top: 17px;
                 left: @inputPaddingLeft;
                 color: #A0A6BF;
-                font-size: 11px;
+                font-size: 14px;
                 line-height: 14px;
                 text-align: left;
+                cursor: text;
+
+                &.active {
+                    top: 5px;
+                    font-size: 11px;
+                }
             }
 
             &-input {
@@ -132,10 +148,6 @@
                 font-size: 14px;
                 font-weight: 500;
             }
-        }
-
-        &-list {
-
         }
     }
 </style>
