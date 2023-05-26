@@ -6,7 +6,6 @@
             <div class="modal_remove-header">
                 <img src="/images/icon-question.svg"
                      alt="Вопрос"
-                     loading="lazy"
                 />
             </div>
 

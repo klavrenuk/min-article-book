@@ -12,7 +12,8 @@ const state = {
     modalRemove: null,
     articles: [],
     filterArticles: null,
-    modalDefault: null
+    modalDefault: null,
+    isValidModalItem: null
 }
 
 export default new Vuex.Store({

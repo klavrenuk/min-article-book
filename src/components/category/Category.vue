@@ -121,9 +121,6 @@
                         break;
 
                     case 'edit':
-                        console.log('edit');
-                        console.log('this.category', this.category);
-
                         this.showModalDefault({
                             categoryIndex: this.index,
                             category: this.category,

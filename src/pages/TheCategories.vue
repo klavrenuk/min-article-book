@@ -53,6 +53,34 @@
         },
 
         methods: {
+            searchInCategory(category, searchTitle) {
+                if(category.articles) {
+                    category.articles = category.articles.filter((article) => {
+                        if(article.name.toLowerCase().search(searchTitle.toLowerCase()) > -1) {
+                            return article;
+                        }
+                    });
+
+                    if(category.articles.length > 0) return true;
+                }
+
+                return false;
+            },
+
+            searchInSubCategory(category, searchTitle) {
+                if(category.subCategories) {
+                    for(let subCategory of category.subCategories) {
+                        const isHas = this.searchInCategory(subCategory, searchTitle)
+
+                        if(!subCategory.subCategories) {
+                            if(isHas) return subCategory;
+                        } else {
+                            return this.searchInSubCategory(subCategory, searchTitle);
+                        }
+                    }
+                }
+            },
+
             filterCategories(searchTitle) {
                 this.isShowPagination = false;
                 const arrCopy = JSON.parse(JSON.stringify(this.$store.state.categories));
@@ -62,15 +90,14 @@
 
                 } else {
                     this.categories = arrCopy.filter((category) => {
-                        if(category.articles) {
-                            category.articles = category.articles.filter((article) => {
-                                if(article.name.toLowerCase().search(searchTitle.toLowerCase()) > -1) {
-                                    return article;
-                                }
-                            })
-                        }
+                        const isHas = this.searchInCategory(category, searchTitle);
 
-                        return category;
+                        if(!category.subCategories) {
+                            if(isHas) return category;
+
+                        } else {
+                            return this.searchInSubCategory(category, searchTitle);
+                        }
                     });
                 }
 

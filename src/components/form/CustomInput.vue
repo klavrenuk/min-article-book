@@ -1,5 +1,6 @@
 <template>
     <div class="custom_input"
+         :class="invalid ? 'invalid' : ''"
          v-click-outside="onClickOutside"
     >
         <label class="custom_input-label"
@@ -17,6 +18,9 @@
                @blur="toggleView()"
                v-on:keyup.esc="onEsc($event)"
         />
+        <label class="custom_input-message"
+               v-if="invalid"
+        >{{ invalid.message }}</label>
     </div>
 </template>
 
@@ -37,6 +41,10 @@
                 type: String,
                 required: false,
                 default: null
+            },
+            invalid: {
+                type: Object,
+                required: false
             }
         },
 
@@ -88,8 +96,24 @@
 </script>
 
 <style lang="less" scoped>
+    @colorInvalid: #F03226;
+
     .custom_input {
         position: relative;
+
+        &.invalid {
+            & .custom_input-input {
+                border: 1px solid @colorInvalid;
+            }
+
+            & .custom_input-message {
+                margin-top: 8px;
+                color: @colorInvalid;
+                font-size: 14px;
+                font-weight: 500;
+                display: inline-block;
+            }
+        }
 
         &-label {
             position: absolute;
@@ -108,7 +132,6 @@
         }
 
         &-input {
-
             &.active {
                 padding: 17px 1rem 6px
             }

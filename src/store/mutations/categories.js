@@ -1,5 +1,6 @@
 import {saveStore} from '@/DataBase';
 import {toggleFixedClass} from '@/middleware/toggleClasses';
+import {addCategory, removeCategory, isValidCategory} from '@/middleware/categories';
 
 function reload(state) {
     state.isLoading = true;
@@ -10,41 +11,6 @@ function reload(state) {
     }, 600);
 }
 
-function addCategory(category, newCategory) {
-    if(category.id === newCategory.parent) {
-        if(!category.subCategories) category.subCategories = [];
-
-        category.subCategories.push(newCategory);
-
-    } else {
-        if(category.subCategories) {
-            for(let subCategories of category.subCategories) {
-                addCategory(subCategories, newCategory);
-            }
-        }
-    }
-}
-
-function removeCategory(category, itemRemove) {
-    if(category.subCategories) {
-        let index = 0;
-
-        for(let subCategory of category.subCategories) {
-            if(subCategory.id === itemRemove.id) {
-                break
-            } else {
-                if(subCategory.subCategories) {
-                    removeCategory(subCategory, itemRemove);
-                }
-            }
-
-            index++;
-        }
-
-        category.subCategories.splice(index, 1);
-    }
-}
-
 const Categories = {
     addCategory(state) {
         const newCategory = {
@@ -53,6 +19,16 @@ const Categories = {
             articles: state.modalDefault.articleSelected.slice(),
             parent: state.modalDefault.category.parent || null
         };
+
+        const validation = isValidCategory(newCategory);
+
+        if(!validation.value) {
+            state.isValidModalItem = [...validation.options];
+            return;
+
+        } else {
+            state.isValidModalItem = null;
+        }
 
         if(!newCategory.parent) {
             state.categories.unshift(newCategory);
@@ -73,6 +49,16 @@ const Categories = {
             ...state.modalDefault.category,
             articles: state.modalDefault.articleSelected.slice(),
         };
+
+        const validation = isValidCategory(newCategory);
+        if(!validation.value) {
+            console.log('invalid Category', newCategory);
+            state.isValidModalItem = [...validation.options];
+            return;
+
+        } else {
+            state.isValidModalItem = null;
+        }
 
         if(state.modalDefault.categoryIndex >= 0) {
             state.categories[state.modalDefault.categoryIndex] = {
@@ -95,9 +81,17 @@ const Categories = {
     },
 
     removeCategory(state, item) {
+        let index = 0;
         for(let category of state.categories) {
+            if(category.id === item.category.id) {
+                break;
+            }
+
             removeCategory(category, item.category);
+            index++;
         }
+
+        state.categories.splice(index, 1);
 
         reload(state);
         saveStore(state.categories);

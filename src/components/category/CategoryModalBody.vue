@@ -5,6 +5,7 @@
                 <CustomInput label="Название"
                              :onChange="onChangeName"
                              :defaultValue="category.name"
+                             :invalid="invalid"
                 />
             </div>
             <div class="form-group">
@@ -28,6 +29,7 @@
 
 <script>
     import {mapActions, mapGetters } from 'vuex'
+
     import SelectWithSearch from "@/components/select/SelectWithSearch";
     import ListSelectedItems from "@/components/select/ListSelectedItems";
     import CustomSelect from "@/components/select/CustomSelect";
@@ -45,6 +47,7 @@
 
         data() {
             return {
+                invalid: null,
                 category: {},
                 isShowForm: false,
                 selectedArticles: [],
@@ -68,6 +71,23 @@
             ])
         },
 
+        watch: {
+            '$store.state.isValidModalItem': function(value) {
+                this.invalid = null;
+
+                if(value && Array.isArray(value)) {
+                    for(let item of value) {
+                        if(item.key === 'name') {
+                            this.invalid = {
+                                message: item.message,
+                                isValid: false
+                            };
+                        }
+                    }
+                }
+            },
+        },
+
         methods: {
             ...mapActions([
                 'addCategory',
@@ -77,6 +97,7 @@
 
             onChangeName(name) {
                 this.category.name = name;
+                this.updateStore();
             },
 
             onSelected(key, value) {
@@ -119,7 +140,9 @@
             updateStore() {
                 this.setModalState({
                     articleSelected: this.selectedArticles,
-                    category: this.category
+                    category: {
+                        ...this.category
+                    }
                 });
             },
 
